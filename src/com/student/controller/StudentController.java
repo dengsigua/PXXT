@@ -152,6 +152,11 @@ public class StudentController {
 		}
 	}
 	
-	
+	@RequestMapping("logout")
+	public String logout(HttpSession session,Model model,String username){		
+		session.setAttribute("student",null);
+        System.out.println("退出登录");
+        return "common/login";				
+	}
 	
 }

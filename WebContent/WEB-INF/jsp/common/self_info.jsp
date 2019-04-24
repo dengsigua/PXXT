@@ -32,7 +32,7 @@
 						<ul>
 							<li>${student.studentTel},&nbsp;&nbsp;欢迎您。&nbsp;&nbsp;&nbsp;&nbsp;</li>
 							<li>|</li>
-							<li><a href="${pageContext.request.contextPath }/common/self_info" target="_blank">退出</a></li>
+							<li><a href="${pageContext.request.contextPath }/student/logout" target="_blank">退出</a></li>
 							<li>|</li>
 							<li><a href="${pageContext.request.contextPath }/common/self_info" target="_blank">个人中心</a></li>
 						</ul>
