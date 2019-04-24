@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.entitycourse.mapper.EntitycourseMapper" >
+  <resultMap id="BaseResultMap" type="com.entitycourse.pojo.Entitycourse" >
+    <id column="EntityCourse_id" property="entitycourseId" jdbcType="BIGINT" />
+    <result column="EntityCourse_cat" property="entitycourseCat" jdbcType="VARCHAR" />
+    <result column="EntityCourse_point" property="entitycoursePoint" jdbcType="VARCHAR" />
+    <result column="EntityCourse_guige" property="entitycourseGuige" jdbcType="VARCHAR" />
+    <result column="EntityCourse_banxing" property="entitycourseBanxing" jdbcType="VARCHAR" />
+    <result column="EntityCourse_type" property="entitycourseType" jdbcType="VARCHAR" />
+    <result column="EntityCourse_bmStartTime" property="entitycourseBmstarttime" jdbcType="DATE" />
+    <result column="EntityCourse_bmEndTime" property="entitycourseBmendtime" jdbcType="DATE" />
+    <result column="EntityCourse_kbStartTime" property="entitycourseKbstarttime" jdbcType="DATE" />
+    <result column="EntityCourse_kbEndTime" property="entitycourseKbendtime" jdbcType="DATE" />
+    <result column="EntityCourse_Img" property="entitycourseImg" jdbcType="VARCHAR" />
+    <result column="EntityCourse_desc" property="entitycourseDesc" jdbcType="VARCHAR" />
+    <result column="Company_Id" property="companyId" jdbcType="BIGINT" />
+    <result column="EntityCourse_title" property="entitycourseTitle" jdbcType="VARCHAR" />
+    <result column="EntityCourse_price" property="entitycoursePrice" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    EntityCourse_id, EntityCourse_cat, EntityCourse_point, EntityCourse_guige, EntityCourse_banxing, 
+    EntityCourse_type, EntityCourse_bmStartTime, EntityCourse_bmEndTime, EntityCourse_kbStartTime, 
+    EntityCourse_kbEndTime, EntityCourse_Img, EntityCourse_desc, Company_Id, EntityCourse_title, 
+    EntityCourse_price
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.entitycourse.pojo.EntitycourseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from entitycourse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    
+     limit #{index},#{pageSize}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from entitycourse
+    where EntityCourse_id = #{entitycourseId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from entitycourse
+    where EntityCourse_id = #{entitycourseId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.entitycourse.pojo.EntitycourseExample" >
+    delete from entitycourse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.entitycourse.pojo.Entitycourse" >
+    insert into entitycourse (EntityCourse_id, EntityCourse_cat, EntityCourse_point, 
+      EntityCourse_guige, EntityCourse_banxing, 
+      EntityCourse_type, EntityCourse_bmStartTime, 
+      EntityCourse_bmEndTime, EntityCourse_kbStartTime, 
+      EntityCourse_kbEndTime, EntityCourse_Img, EntityCourse_desc, 
+      Company_Id, EntityCourse_title, EntityCourse_price
+      )
+    values (#{entitycourseId,jdbcType=BIGINT}, #{entitycourseCat,jdbcType=VARCHAR}, #{entitycoursePoint,jdbcType=VARCHAR}, 
+      #{entitycourseGuige,jdbcType=VARCHAR}, #{entitycourseBanxing,jdbcType=VARCHAR}, 
+      #{entitycourseType,jdbcType=VARCHAR}, #{entitycourseBmstarttime,jdbcType=DATE}, 
+      #{entitycourseBmendtime,jdbcType=DATE}, #{entitycourseKbstarttime,jdbcType=DATE}, 
+      #{entitycourseKbendtime,jdbcType=DATE}, #{entitycourseImg,jdbcType=VARCHAR}, #{entitycourseDesc,jdbcType=VARCHAR}, 
+      #{companyId,jdbcType=BIGINT}, #{entitycourseTitle,jdbcType=VARCHAR}, #{entitycoursePrice,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.entitycourse.pojo.Entitycourse" >
+    insert into entitycourse
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="entitycourseId != null" >
+        EntityCourse_id,
+      </if>
+      <if test="entitycourseCat != null" >
+        EntityCourse_cat,
+      </if>
+      <if test="entitycoursePoint != null" >
+        EntityCourse_point,
+      </if>
+      <if test="entitycourseGuige != null" >
+        EntityCourse_guige,
+      </if>
+      <if test="entitycourseBanxing != null" >
+        EntityCourse_banxing,
+      </if>
+      <if test="entitycourseType != null" >
+        EntityCourse_type,
+      </if>
+      <if test="entitycourseBmstarttime != null" >
+        EntityCourse_bmStartTime,
+      </if>
+      <if test="entitycourseBmendtime != null" >
+        EntityCourse_bmEndTime,
+      </if>
+      <if test="entitycourseKbstarttime != null" >
+        EntityCourse_kbStartTime,
+      </if>
+      <if test="entitycourseKbendtime != null" >
+        EntityCourse_kbEndTime,
+      </if>
+      <if test="entitycourseImg != null" >
+        EntityCourse_Img,
+      </if>
+      <if test="entitycourseDesc != null" >
+        EntityCourse_desc,
+      </if>
+      <if test="companyId != null" >
+        Company_Id,
+      </if>
+      <if test="entitycourseTitle != null" >
+        EntityCourse_title,
+      </if>
+      <if test="entitycoursePrice != null" >
+        EntityCourse_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="entitycourseId != null" >
+        #{entitycourseId,jdbcType=BIGINT},
+      </if>
+      <if test="entitycourseCat != null" >
+        #{entitycourseCat,jdbcType=VARCHAR},
+      </if>
+      <if test="entitycoursePoint != null" >
+        #{entitycoursePoint,jdbcType=VARCHAR},
+      </if>
+      <if test="entitycourseGuige != null" >
+        #{entitycourseGuige,jdbcType=VARCHAR},
+      </if>
+      <if test="entitycourseBanxing != null" >
+        #{entitycourseBanxing,jdbcType=VARCHAR},
+      </if>
+      <if test="entitycourseType != null" >
+        #{entitycourseType,jdbcType=VARCHAR},
+      </if>
+      <if test="entitycourseBmstarttime != null" >
+        #{entitycourseBmstarttime,jdbcType=DATE},
+      </if>
+      <if test="entitycourseBmendtime != null" >
+        #{entitycourseBmendtime,jdbcType=DATE},
+      </if>
+      <if test="entitycourseKbstarttime != null" >
+        #{entitycourseKbstarttime,jdbcType=DATE},
+      </if>
+      <if test="entitycourseKbendtime != null" >
+        #{entitycourseKbendtime,jdbcType=DATE},
+      </if>
+      <if test="entitycourseImg != null" >
+        #{entitycourseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="entitycourseDesc != null" >
+        #{entitycourseDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="entitycourseTitle != null" >
+        #{entitycourseTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="entitycoursePrice != null" >
+        #{entitycoursePrice,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.entitycourse.pojo.EntitycourseExample" resultType="java.lang.Integer" >
+    select count(*) from entitycourse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update entitycourse
+    <set >
+      <if test="record.entitycourseId != null" >
+        EntityCourse_id = #{record.entitycourseId,jdbcType=BIGINT},
+      </if>
+      <if test="record.entitycourseCat != null" >
+        EntityCourse_cat = #{record.entitycourseCat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entitycoursePoint != null" >
+        EntityCourse_point = #{record.entitycoursePoint,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entitycourseGuige != null" >
+        EntityCourse_guige = #{record.entitycourseGuige,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entitycourseBanxing != null" >
+        EntityCourse_banxing = #{record.entitycourseBanxing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entitycourseType != null" >
+        EntityCourse_type = #{record.entitycourseType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entitycourseBmstarttime != null" >
+        EntityCourse_bmStartTime = #{record.entitycourseBmstarttime,jdbcType=DATE},
+      </if>
+      <if test="record.entitycourseBmendtime != null" >
+        EntityCourse_bmEndTime = #{record.entitycourseBmendtime,jdbcType=DATE},
+      </if>
+      <if test="record.entitycourseKbstarttime != null" >
+        EntityCourse_kbStartTime = #{record.entitycourseKbstarttime,jdbcType=DATE},
+      </if>
+      <if test="record.entitycourseKbendtime != null" >
+        EntityCourse_kbEndTime = #{record.entitycourseKbendtime,jdbcType=DATE},
+      </if>
+      <if test="record.entitycourseImg != null" >
+        EntityCourse_Img = #{record.entitycourseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entitycourseDesc != null" >
+        EntityCourse_desc = #{record.entitycourseDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyId != null" >
+        Company_Id = #{record.companyId,jdbcType=BIGINT},
+      </if>
+      <if test="record.entitycourseTitle != null" >
+        EntityCourse_title = #{record.entitycourseTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.entitycoursePrice != null" >
+        EntityCourse_price = #{record.entitycoursePrice,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update entitycourse
+    set EntityCourse_id = #{record.entitycourseId,jdbcType=BIGINT},
+      EntityCourse_cat = #{record.entitycourseCat,jdbcType=VARCHAR},
+      EntityCourse_point = #{record.entitycoursePoint,jdbcType=VARCHAR},
+      EntityCourse_guige = #{record.entitycourseGuige,jdbcType=VARCHAR},
+      EntityCourse_banxing = #{record.entitycourseBanxing,jdbcType=VARCHAR},
+      EntityCourse_type = #{record.entitycourseType,jdbcType=VARCHAR},
+      EntityCourse_bmStartTime = #{record.entitycourseBmstarttime,jdbcType=DATE},
+      EntityCourse_bmEndTime = #{record.entitycourseBmendtime,jdbcType=DATE},
+      EntityCourse_kbStartTime = #{record.entitycourseKbstarttime,jdbcType=DATE},
+      EntityCourse_kbEndTime = #{record.entitycourseKbendtime,jdbcType=DATE},
+      EntityCourse_Img = #{record.entitycourseImg,jdbcType=VARCHAR},
+      EntityCourse_desc = #{record.entitycourseDesc,jdbcType=VARCHAR},
+      Company_Id = #{record.companyId,jdbcType=BIGINT},
+      EntityCourse_title = #{record.entitycourseTitle,jdbcType=VARCHAR},
+      EntityCourse_price = #{record.entitycoursePrice,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entitycourse.pojo.Entitycourse" >
+    update entitycourse
+    <set >
+      <if test="entitycourseCat != null" >
+        EntityCourse_cat = #{entitycourseCat,jdbcType=VARCHAR},
+      </if>
+      <if test="entitycoursePoint != null" >
+        EntityCourse_point = #{entitycoursePoint,jdbcType=VARCHAR},
+      </if>
+      <if test="entitycourseGuige != null" >
+        EntityCourse_guige = #{entitycourseGuige,jdbcType=VARCHAR},
+      </if>
+      <if test="entitycourseBanxing != null" >
+        EntityCourse_banxing = #{entitycourseBanxing,jdbcType=VARCHAR},
+      </if>
+      <if test="entitycourseType != null" >
+        EntityCourse_type = #{entitycourseType,jdbcType=VARCHAR},
+      </if>
+      <if test="entitycourseBmstarttime != null" >
+        EntityCourse_bmStartTime = #{entitycourseBmstarttime,jdbcType=DATE},
+      </if>
+      <if test="entitycourseBmendtime != null" >
+        EntityCourse_bmEndTime = #{entitycourseBmendtime,jdbcType=DATE},
+      </if>
+      <if test="entitycourseKbstarttime != null" >
+        EntityCourse_kbStartTime = #{entitycourseKbstarttime,jdbcType=DATE},
+      </if>
+      <if test="entitycourseKbendtime != null" >
+        EntityCourse_kbEndTime = #{entitycourseKbendtime,jdbcType=DATE},
+      </if>
+      <if test="entitycourseImg != null" >
+        EntityCourse_Img = #{entitycourseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="entitycourseDesc != null" >
+        EntityCourse_desc = #{entitycourseDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        Company_Id = #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="entitycourseTitle != null" >
+        EntityCourse_title = #{entitycourseTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="entitycoursePrice != null" >
+        EntityCourse_price = #{entitycoursePrice,jdbcType=INTEGER},
+      </if>
+    </set>
+    where EntityCourse_id = #{entitycourseId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entitycourse.pojo.Entitycourse" >
+    update entitycourse
+    set EntityCourse_cat = #{entitycourseCat,jdbcType=VARCHAR},
+      EntityCourse_point = #{entitycoursePoint,jdbcType=VARCHAR},
+      EntityCourse_guige = #{entitycourseGuige,jdbcType=VARCHAR},
+      EntityCourse_banxing = #{entitycourseBanxing,jdbcType=VARCHAR},
+      EntityCourse_type = #{entitycourseType,jdbcType=VARCHAR},
+      EntityCourse_bmStartTime = #{entitycourseBmstarttime,jdbcType=DATE},
+      EntityCourse_bmEndTime = #{entitycourseBmendtime,jdbcType=DATE},
+      EntityCourse_kbStartTime = #{entitycourseKbstarttime,jdbcType=DATE},
+      EntityCourse_kbEndTime = #{entitycourseKbendtime,jdbcType=DATE},
+      EntityCourse_Img = #{entitycourseImg,jdbcType=VARCHAR},
+      EntityCourse_desc = #{entitycourseDesc,jdbcType=VARCHAR},
+      Company_Id = #{companyId,jdbcType=BIGINT},
+      EntityCourse_title = #{entitycourseTitle,jdbcType=VARCHAR},
+      EntityCourse_price = #{entitycoursePrice,jdbcType=INTEGER}
+    where EntityCourse_id = #{entitycourseId,jdbcType=BIGINT}
+  </update>
+  
+   <select id="findAll" resultMap="BaseResultMap" parameterType="com.common.utils.PageBean">
+ 	Select * from entitycourse limit #{index},#{pageSize}
+ </select>
+</mapper>

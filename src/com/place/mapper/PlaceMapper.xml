@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.place.mapper.PlaceMapper" >
+  <resultMap id="BaseResultMap" type="com.place.pojo.Place" >
+    <id column="place_id" property="placeId" jdbcType="BIGINT" />
+    <result column="place_name" property="placeName" jdbcType="VARCHAR" />
+    <result column="place_address" property="placeAddress" jdbcType="VARCHAR" />
+    <result column="place_company" property="placeCompany" jdbcType="VARCHAR" />
+    <result column="place_starttime" property="placeStarttime" jdbcType="DATE" />
+    <result column="place_endtime" property="placeEndtime" jdbcType="DATE" />
+    <result column="place_size" property="placeSize" jdbcType="VARCHAR" />
+    <result column="place_state" property="placeState" jdbcType="VARCHAR" />
+    <result column="place_content" property="placeContent" jdbcType="VARCHAR" />
+    <result column="place_tel" property="placeTel" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    place_id, place_name, place_address, place_company, place_starttime, place_endtime, 
+    place_size, place_state, place_content, place_tel
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.place.pojo.PlaceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from place
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    limit #{index},#{pageSize}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from place
+    where place_id = #{placeId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from place
+    where place_id = #{placeId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.place.pojo.PlaceExample" >
+    delete from place
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.place.pojo.Place" >
+    insert into place (place_id, place_name, place_address, 
+      place_company, place_starttime, place_endtime, 
+      place_size, place_state, place_content, 
+      place_tel)
+    values (#{placeId,jdbcType=BIGINT}, #{placeName,jdbcType=VARCHAR}, #{placeAddress,jdbcType=VARCHAR}, 
+      #{placeCompany,jdbcType=VARCHAR}, #{placeStarttime,jdbcType=DATE}, #{placeEndtime,jdbcType=DATE}, 
+      #{placeSize,jdbcType=VARCHAR}, #{placeState,jdbcType=VARCHAR}, #{placeContent,jdbcType=VARCHAR}, 
+      #{placeTel,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.place.pojo.Place" >
+    insert into place
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="placeId != null" >
+        place_id,
+      </if>
+      <if test="placeName != null" >
+        place_name,
+      </if>
+      <if test="placeAddress != null" >
+        place_address,
+      </if>
+      <if test="placeCompany != null" >
+        place_company,
+      </if>
+      <if test="placeStarttime != null" >
+        place_starttime,
+      </if>
+      <if test="placeEndtime != null" >
+        place_endtime,
+      </if>
+      <if test="placeSize != null" >
+        place_size,
+      </if>
+      <if test="placeState != null" >
+        place_state,
+      </if>
+      <if test="placeContent != null" >
+        place_content,
+      </if>
+      <if test="placeTel != null" >
+        place_tel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="placeId != null" >
+        #{placeId,jdbcType=BIGINT},
+      </if>
+      <if test="placeName != null" >
+        #{placeName,jdbcType=VARCHAR},
+      </if>
+      <if test="placeAddress != null" >
+        #{placeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="placeCompany != null" >
+        #{placeCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="placeStarttime != null" >
+        #{placeStarttime,jdbcType=DATE},
+      </if>
+      <if test="placeEndtime != null" >
+        #{placeEndtime,jdbcType=DATE},
+      </if>
+      <if test="placeSize != null" >
+        #{placeSize,jdbcType=VARCHAR},
+      </if>
+      <if test="placeState != null" >
+        #{placeState,jdbcType=VARCHAR},
+      </if>
+      <if test="placeContent != null" >
+        #{placeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="placeTel != null" >
+        #{placeTel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.place.pojo.PlaceExample" resultType="java.lang.Integer" >
+    select count(*) from place
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update place
+    <set >
+      <if test="record.placeId != null" >
+        place_id = #{record.placeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.placeName != null" >
+        place_name = #{record.placeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.placeAddress != null" >
+        place_address = #{record.placeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.placeCompany != null" >
+        place_company = #{record.placeCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.placeStarttime != null" >
+        place_starttime = #{record.placeStarttime,jdbcType=DATE},
+      </if>
+      <if test="record.placeEndtime != null" >
+        place_endtime = #{record.placeEndtime,jdbcType=DATE},
+      </if>
+      <if test="record.placeSize != null" >
+        place_size = #{record.placeSize,jdbcType=VARCHAR},
+      </if>
+      <if test="record.placeState != null" >
+        place_state = #{record.placeState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.placeContent != null" >
+        place_content = #{record.placeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.placeTel != null" >
+        place_tel = #{record.placeTel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update place
+    set place_id = #{record.placeId,jdbcType=BIGINT},
+      place_name = #{record.placeName,jdbcType=VARCHAR},
+      place_address = #{record.placeAddress,jdbcType=VARCHAR},
+      place_company = #{record.placeCompany,jdbcType=VARCHAR},
+      place_starttime = #{record.placeStarttime,jdbcType=DATE},
+      place_endtime = #{record.placeEndtime,jdbcType=DATE},
+      place_size = #{record.placeSize,jdbcType=VARCHAR},
+      place_state = #{record.placeState,jdbcType=VARCHAR},
+      place_content = #{record.placeContent,jdbcType=VARCHAR},
+      place_tel = #{record.placeTel,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.place.pojo.Place" >
+    update place
+    <set >
+      <if test="placeName != null" >
+        place_name = #{placeName,jdbcType=VARCHAR},
+      </if>
+      <if test="placeAddress != null" >
+        place_address = #{placeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="placeCompany != null" >
+        place_company = #{placeCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="placeStarttime != null" >
+        place_starttime = #{placeStarttime,jdbcType=DATE},
+      </if>
+      <if test="placeEndtime != null" >
+        place_endtime = #{placeEndtime,jdbcType=DATE},
+      </if>
+      <if test="placeSize != null" >
+        place_size = #{placeSize,jdbcType=VARCHAR},
+      </if>
+      <if test="placeState != null" >
+        place_state = #{placeState,jdbcType=VARCHAR},
+      </if>
+      <if test="placeContent != null" >
+        place_content = #{placeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="placeTel != null" >
+        place_tel = #{placeTel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where place_id = #{placeId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.place.pojo.Place" >
+    update place
+    set place_name = #{placeName,jdbcType=VARCHAR},
+      place_address = #{placeAddress,jdbcType=VARCHAR},
+      place_company = #{placeCompany,jdbcType=VARCHAR},
+      place_starttime = #{placeStarttime,jdbcType=DATE},
+      place_endtime = #{placeEndtime,jdbcType=DATE},
+      place_size = #{placeSize,jdbcType=VARCHAR},
+      place_state = #{placeState,jdbcType=VARCHAR},
+      place_content = #{placeContent,jdbcType=VARCHAR},
+      place_tel = #{placeTel,jdbcType=VARCHAR}
+    where place_id = #{placeId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.company.mapper.CompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.company.pojo.Company" >
+    <id column="company_id" property="companyId" jdbcType="BIGINT" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="company_city" property="companyCity" jdbcType="VARCHAR" />
+    <result column="company_contacts" property="companyContacts" jdbcType="VARCHAR" />
+    <result column="company_tel" property="companyTel" jdbcType="VARCHAR" />
+    <result column="company_email" property="companyEmail" jdbcType="VARCHAR" />
+    <result column="company_labels" property="companyLabels" jdbcType="VARCHAR" />
+    <result column="company_password" property="companyPassword" jdbcType="VARCHAR" />
+    <result column="company_state" property="companyState" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.company.pojo.Company" extends="BaseResultMap" >
+    <result column="company_desc" property="companyDesc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    company_id, company_name, company_city, company_contacts, company_tel, company_email, 
+    company_labels, company_password, company_state
+  </sql>
+  <sql id="Blob_Column_List" >
+    company_desc
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.company.pojo.CompanyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from company
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    
+       limit #{index},#{pageSize}
+       
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.company.pojo.CompanyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from company
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    
+    limit #{index},#{pageSize}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from company
+    where company_id = #{companyId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from company
+    where company_id = #{companyId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.company.pojo.CompanyExample" >
+    delete from company
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.company.pojo.Company" >
+    insert into company (company_id, company_name, company_city, 
+      company_contacts, company_tel, company_email, 
+      company_labels, company_password, company_state, 
+      company_desc)
+    values (#{companyId,jdbcType=BIGINT}, #{companyName,jdbcType=VARCHAR}, #{companyCity,jdbcType=VARCHAR}, 
+      #{companyContacts,jdbcType=VARCHAR}, #{companyTel,jdbcType=VARCHAR}, #{companyEmail,jdbcType=VARCHAR}, 
+      #{companyLabels,jdbcType=VARCHAR}, #{companyPassword,jdbcType=VARCHAR}, #{companyState,jdbcType=INTEGER}, 
+      #{companyDesc,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.company.pojo.Company" >
+    insert into company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="companyCity != null" >
+        company_city,
+      </if>
+      <if test="companyContacts != null" >
+        company_contacts,
+      </if>
+      <if test="companyTel != null" >
+        company_tel,
+      </if>
+      <if test="companyEmail != null" >
+        company_email,
+      </if>
+      <if test="companyLabels != null" >
+        company_labels,
+      </if>
+      <if test="companyPassword != null" >
+        company_password,
+      </if>
+      <if test="companyState != null" >
+        company_state,
+      </if>
+      <if test="companyDesc != null" >
+        company_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="companyId != null" >
+        #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCity != null" >
+        #{companyCity,jdbcType=VARCHAR},
+      </if>
+      <if test="companyContacts != null" >
+        #{companyContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="companyTel != null" >
+        #{companyTel,jdbcType=VARCHAR},
+      </if>
+      <if test="companyEmail != null" >
+        #{companyEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="companyLabels != null" >
+        #{companyLabels,jdbcType=VARCHAR},
+      </if>
+      <if test="companyPassword != null" >
+        #{companyPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="companyState != null" >
+        #{companyState,jdbcType=INTEGER},
+      </if>
+      <if test="companyDesc != null" >
+        #{companyDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.company.pojo.CompanyExample" resultType="java.lang.Integer" >
+    select count(*) from company
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update company
+    <set >
+      <if test="record.companyId != null" >
+        company_id = #{record.companyId,jdbcType=BIGINT},
+      </if>
+      <if test="record.companyName != null" >
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyCity != null" >
+        company_city = #{record.companyCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyContacts != null" >
+        company_contacts = #{record.companyContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyTel != null" >
+        company_tel = #{record.companyTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyEmail != null" >
+        company_email = #{record.companyEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyLabels != null" >
+        company_labels = #{record.companyLabels,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyPassword != null" >
+        company_password = #{record.companyPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyState != null" >
+        company_state = #{record.companyState,jdbcType=INTEGER},
+      </if>
+      <if test="record.companyDesc != null" >
+        company_desc = #{record.companyDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update company
+    set company_id = #{record.companyId,jdbcType=BIGINT},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      company_city = #{record.companyCity,jdbcType=VARCHAR},
+      company_contacts = #{record.companyContacts,jdbcType=VARCHAR},
+      company_tel = #{record.companyTel,jdbcType=VARCHAR},
+      company_email = #{record.companyEmail,jdbcType=VARCHAR},
+      company_labels = #{record.companyLabels,jdbcType=VARCHAR},
+      company_password = #{record.companyPassword,jdbcType=VARCHAR},
+      company_state = #{record.companyState,jdbcType=INTEGER},
+      company_desc = #{record.companyDesc,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update company
+    set company_id = #{record.companyId,jdbcType=BIGINT},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      company_city = #{record.companyCity,jdbcType=VARCHAR},
+      company_contacts = #{record.companyContacts,jdbcType=VARCHAR},
+      company_tel = #{record.companyTel,jdbcType=VARCHAR},
+      company_email = #{record.companyEmail,jdbcType=VARCHAR},
+      company_labels = #{record.companyLabels,jdbcType=VARCHAR},
+      company_password = #{record.companyPassword,jdbcType=VARCHAR},
+      company_state = #{record.companyState,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.company.pojo.Company" >
+    update company
+    <set >
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyCity != null" >
+        company_city = #{companyCity,jdbcType=VARCHAR},
+      </if>
+      <if test="companyContacts != null" >
+        company_contacts = #{companyContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="companyTel != null" >
+        company_tel = #{companyTel,jdbcType=VARCHAR},
+      </if>
+      <if test="companyEmail != null" >
+        company_email = #{companyEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="companyLabels != null" >
+        company_labels = #{companyLabels,jdbcType=VARCHAR},
+      </if>
+      <if test="companyPassword != null" >
+        company_password = #{companyPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="companyState != null" >
+        company_state = #{companyState,jdbcType=INTEGER},
+      </if>
+      <if test="companyDesc != null" >
+        company_desc = #{companyDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where company_id = #{companyId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.company.pojo.Company" >
+    update company
+    set company_name = #{companyName,jdbcType=VARCHAR},
+      company_city = #{companyCity,jdbcType=VARCHAR},
+      company_contacts = #{companyContacts,jdbcType=VARCHAR},
+      company_tel = #{companyTel,jdbcType=VARCHAR},
+      company_email = #{companyEmail,jdbcType=VARCHAR},
+      company_labels = #{companyLabels,jdbcType=VARCHAR},
+      company_password = #{companyPassword,jdbcType=VARCHAR},
+      company_state = #{companyState,jdbcType=INTEGER},
+      company_desc = #{companyDesc,jdbcType=LONGVARCHAR}
+    where company_id = #{companyId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.company.pojo.Company" >
+    update company
+    set company_name = #{companyName,jdbcType=VARCHAR},
+      company_city = #{companyCity,jdbcType=VARCHAR},
+      company_contacts = #{companyContacts,jdbcType=VARCHAR},
+      company_tel = #{companyTel,jdbcType=VARCHAR},
+      company_email = #{companyEmail,jdbcType=VARCHAR},
+      company_labels = #{companyLabels,jdbcType=VARCHAR},
+      company_password = #{companyPassword,jdbcType=VARCHAR},
+      company_state = #{companyState,jdbcType=INTEGER}
+    where company_id = #{companyId,jdbcType=BIGINT}
+  </update>
+  
+   <select id="findAll" resultMap="BaseResultMap" parameterType="com.common.utils.PageBean">
+ 	Select * from company limit #{index},#{pageSize}
+ </select>
+ 
+</mapper>

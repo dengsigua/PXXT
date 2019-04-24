@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cat.mapper.ClassCatMapper" >
+  <resultMap id="BaseResultMap" type="com.cat.pojo.ClassCat" >
+    <id column="class_cat_id" property="classCatId" jdbcType="BIGINT" />
+    <result column="class_cat_parent_id" property="classCatParentId" jdbcType="BIGINT" />
+    <result column="class_cat_name" property="classCatName" jdbcType="VARCHAR" />
+    <result column="class_cat_status" property="classCatStatus" jdbcType="INTEGER" />
+    <result column="class_cat_sort_order" property="classCatSortOrder" jdbcType="INTEGER" />
+    <result column="class_cat_is_parent" property="classCatIsParent" jdbcType="BIT" />
+    <result column="class_cat_created" property="classCatCreated" jdbcType="TIMESTAMP" />
+    <result column="class_cat_updated" property="classCatUpdated" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    class_cat_id, class_cat_parent_id, class_cat_name, class_cat_status, class_cat_sort_order, 
+    class_cat_is_parent, class_cat_created, class_cat_updated
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cat.pojo.ClassCatExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from class_cat
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from class_cat
+    where class_cat_id = #{classCatId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from class_cat
+    where class_cat_id = #{classCatId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cat.pojo.ClassCatExample" >
+    delete from class_cat
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cat.pojo.ClassCat" >
+    insert into class_cat (class_cat_id, class_cat_parent_id, class_cat_name, 
+      class_cat_status, class_cat_sort_order, class_cat_is_parent, 
+      class_cat_created, class_cat_updated)
+    values (#{classCatId,jdbcType=BIGINT}, #{classCatParentId,jdbcType=BIGINT}, #{classCatName,jdbcType=VARCHAR}, 
+      #{classCatStatus,jdbcType=INTEGER}, #{classCatSortOrder,jdbcType=INTEGER}, #{classCatIsParent,jdbcType=BIT}, 
+      #{classCatCreated,jdbcType=TIMESTAMP}, #{classCatUpdated,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cat.pojo.ClassCat" >
+    insert into class_cat
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="classCatId != null" >
+        class_cat_id,
+      </if>
+      <if test="classCatParentId != null" >
+        class_cat_parent_id,
+      </if>
+      <if test="classCatName != null" >
+        class_cat_name,
+      </if>
+      <if test="classCatStatus != null" >
+        class_cat_status,
+      </if>
+      <if test="classCatSortOrder != null" >
+        class_cat_sort_order,
+      </if>
+      <if test="classCatIsParent != null" >
+        class_cat_is_parent,
+      </if>
+      <if test="classCatCreated != null" >
+        class_cat_created,
+      </if>
+      <if test="classCatUpdated != null" >
+        class_cat_updated,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="classCatId != null" >
+        #{classCatId,jdbcType=BIGINT},
+      </if>
+      <if test="classCatParentId != null" >
+        #{classCatParentId,jdbcType=BIGINT},
+      </if>
+      <if test="classCatName != null" >
+        #{classCatName,jdbcType=VARCHAR},
+      </if>
+      <if test="classCatStatus != null" >
+        #{classCatStatus,jdbcType=INTEGER},
+      </if>
+      <if test="classCatSortOrder != null" >
+        #{classCatSortOrder,jdbcType=INTEGER},
+      </if>
+      <if test="classCatIsParent != null" >
+        #{classCatIsParent,jdbcType=BIT},
+      </if>
+      <if test="classCatCreated != null" >
+        #{classCatCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="classCatUpdated != null" >
+        #{classCatUpdated,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cat.pojo.ClassCatExample" resultType="java.lang.Integer" >
+    select count(*) from class_cat
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update class_cat
+    <set >
+      <if test="record.classCatId != null" >
+        class_cat_id = #{record.classCatId,jdbcType=BIGINT},
+      </if>
+      <if test="record.classCatParentId != null" >
+        class_cat_parent_id = #{record.classCatParentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.classCatName != null" >
+        class_cat_name = #{record.classCatName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classCatStatus != null" >
+        class_cat_status = #{record.classCatStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.classCatSortOrder != null" >
+        class_cat_sort_order = #{record.classCatSortOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.classCatIsParent != null" >
+        class_cat_is_parent = #{record.classCatIsParent,jdbcType=BIT},
+      </if>
+      <if test="record.classCatCreated != null" >
+        class_cat_created = #{record.classCatCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.classCatUpdated != null" >
+        class_cat_updated = #{record.classCatUpdated,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update class_cat
+    set class_cat_id = #{record.classCatId,jdbcType=BIGINT},
+      class_cat_parent_id = #{record.classCatParentId,jdbcType=BIGINT},
+      class_cat_name = #{record.classCatName,jdbcType=VARCHAR},
+      class_cat_status = #{record.classCatStatus,jdbcType=INTEGER},
+      class_cat_sort_order = #{record.classCatSortOrder,jdbcType=INTEGER},
+      class_cat_is_parent = #{record.classCatIsParent,jdbcType=BIT},
+      class_cat_created = #{record.classCatCreated,jdbcType=TIMESTAMP},
+      class_cat_updated = #{record.classCatUpdated,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cat.pojo.ClassCat" >
+    update class_cat
+    <set >
+      <if test="classCatParentId != null" >
+        class_cat_parent_id = #{classCatParentId,jdbcType=BIGINT},
+      </if>
+      <if test="classCatName != null" >
+        class_cat_name = #{classCatName,jdbcType=VARCHAR},
+      </if>
+      <if test="classCatStatus != null" >
+        class_cat_status = #{classCatStatus,jdbcType=INTEGER},
+      </if>
+      <if test="classCatSortOrder != null" >
+        class_cat_sort_order = #{classCatSortOrder,jdbcType=INTEGER},
+      </if>
+      <if test="classCatIsParent != null" >
+        class_cat_is_parent = #{classCatIsParent,jdbcType=BIT},
+      </if>
+      <if test="classCatCreated != null" >
+        class_cat_created = #{classCatCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="classCatUpdated != null" >
+        class_cat_updated = #{classCatUpdated,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where class_cat_id = #{classCatId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cat.pojo.ClassCat" >
+    update class_cat
+    set class_cat_parent_id = #{classCatParentId,jdbcType=BIGINT},
+      class_cat_name = #{classCatName,jdbcType=VARCHAR},
+      class_cat_status = #{classCatStatus,jdbcType=INTEGER},
+      class_cat_sort_order = #{classCatSortOrder,jdbcType=INTEGER},
+      class_cat_is_parent = #{classCatIsParent,jdbcType=BIT},
+      class_cat_created = #{classCatCreated,jdbcType=TIMESTAMP},
+      class_cat_updated = #{classCatUpdated,jdbcType=TIMESTAMP}
+    where class_cat_id = #{classCatId,jdbcType=BIGINT}
+  </update>
+</mapper>

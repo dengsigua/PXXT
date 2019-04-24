@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.period.mapper.PeriodMapper" >
+  <resultMap id="BaseResultMap" type="com.period.pojo.Period" >
+    <id column="period_id" property="periodId" jdbcType="INTEGER" />
+    <result column="classes_id" property="classesId" jdbcType="INTEGER" />
+    <result column="period_title" property="periodTitle" jdbcType="VARCHAR" />
+    <result column="period_resourse" property="periodResourse" jdbcType="VARCHAR" />
+    <result column="period_index" property="periodIndex" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    period_id, classes_id, period_title, period_resourse, period_index
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.period.pojo.PeriodExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from period
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    
+    limit #{index},#{pageSize}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from period
+    where period_id = #{periodId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from period
+    where period_id = #{periodId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.period.pojo.PeriodExample" >
+    delete from period
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.period.pojo.Period" >
+    insert into period (period_id, classes_id, period_title, 
+      period_resourse, period_index)
+    values (#{periodId,jdbcType=INTEGER}, #{classesId,jdbcType=INTEGER}, #{periodTitle,jdbcType=VARCHAR}, 
+      #{periodResourse,jdbcType=VARCHAR}, #{periodIndex,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.period.pojo.Period" >
+    insert into period
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="periodId != null" >
+        period_id,
+      </if>
+      <if test="classesId != null" >
+        classes_id,
+      </if>
+      <if test="periodTitle != null" >
+        period_title,
+      </if>
+      <if test="periodResourse != null" >
+        period_resourse,
+      </if>
+      <if test="periodIndex != null" >
+        period_index,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="periodId != null" >
+        #{periodId,jdbcType=INTEGER},
+      </if>
+      <if test="classesId != null" >
+        #{classesId,jdbcType=INTEGER},
+      </if>
+      <if test="periodTitle != null" >
+        #{periodTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="periodResourse != null" >
+        #{periodResourse,jdbcType=VARCHAR},
+      </if>
+      <if test="periodIndex != null" >
+        #{periodIndex,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.period.pojo.PeriodExample" resultType="java.lang.Integer" >
+    select count(*) from period
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update period
+    <set >
+      <if test="record.periodId != null" >
+        period_id = #{record.periodId,jdbcType=INTEGER},
+      </if>
+      <if test="record.classesId != null" >
+        classes_id = #{record.classesId,jdbcType=INTEGER},
+      </if>
+      <if test="record.periodTitle != null" >
+        period_title = #{record.periodTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.periodResourse != null" >
+        period_resourse = #{record.periodResourse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.periodIndex != null" >
+        period_index = #{record.periodIndex,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update period
+    set period_id = #{record.periodId,jdbcType=INTEGER},
+      classes_id = #{record.classesId,jdbcType=INTEGER},
+      period_title = #{record.periodTitle,jdbcType=VARCHAR},
+      period_resourse = #{record.periodResourse,jdbcType=VARCHAR},
+      period_index = #{record.periodIndex,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.period.pojo.Period" >
+    update period
+    <set >
+      <if test="classesId != null" >
+        classes_id = #{classesId,jdbcType=INTEGER},
+      </if>
+      <if test="periodTitle != null" >
+        period_title = #{periodTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="periodResourse != null" >
+        period_resourse = #{periodResourse,jdbcType=VARCHAR},
+      </if>
+      <if test="periodIndex != null" >
+        period_index = #{periodIndex,jdbcType=INTEGER},
+      </if>
+    </set>
+    where period_id = #{periodId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.period.pojo.Period" >
+    update period
+    set classes_id = #{classesId,jdbcType=INTEGER},
+      period_title = #{periodTitle,jdbcType=VARCHAR},
+      period_resourse = #{periodResourse,jdbcType=VARCHAR},
+      period_index = #{periodIndex,jdbcType=INTEGER}
+    where period_id = #{periodId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findAll" resultMap="BaseResultMap" parameterType="com.common.utils.PageBean">
+ 	Select * from period limit #{index},#{pageSize}
+ </select>
+</mapper>

@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.classes.mapper.ClassesMapper" >
+  <resultMap id="BaseResultMap" type="com.classes.pojo.Classes" >
+    <id column="class_id" property="classId" jdbcType="BIGINT" />
+    <result column="class_title" property="classTitle" jdbcType="VARCHAR" />
+    <result column="class_sell_point" property="classSellPoint" jdbcType="VARCHAR" />
+    <result column="class_price" property="classPrice" jdbcType="BIGINT" />
+    <result column="class_img" property="classImg" jdbcType="VARCHAR" />
+    <result column="class_cid" property="classCid" jdbcType="VARCHAR" />
+    <result column="class_status" property="classStatus" jdbcType="TINYINT" />
+    <result column="class_created" property="classCreated" jdbcType="TIMESTAMP" />
+    <result column="class_update" property="classUpdate" jdbcType="TIMESTAMP" />
+    <result column="company_id" property="companyId" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.classes.pojo.Classes" extends="BaseResultMap" >
+    <result column="class_desc" property="classDesc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    class_id, class_title, class_sell_point, class_price, class_img, class_cid, class_status, 
+    class_created, class_update, company_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    class_desc
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.classes.pojo.ClassesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from classes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.classes.pojo.ClassesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from classes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+      limit #{index},#{pageSize}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from classes
+    where class_id = #{classId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from classes
+    where class_id = #{classId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.classes.pojo.ClassesExample" >
+    delete from classes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.classes.pojo.Classes" >
+    insert into classes (class_id, class_title, class_sell_point, 
+      class_price, class_img, class_cid, 
+      class_status, class_created, class_update, 
+      company_id, class_desc)
+    values (#{classId,jdbcType=BIGINT}, #{classTitle,jdbcType=VARCHAR}, #{classSellPoint,jdbcType=VARCHAR}, 
+      #{classPrice,jdbcType=BIGINT}, #{classImg,jdbcType=VARCHAR}, #{classCid,jdbcType=VARCHAR}, 
+      #{classStatus,jdbcType=TINYINT}, #{classCreated,jdbcType=TIMESTAMP}, #{classUpdate,jdbcType=TIMESTAMP}, 
+      #{companyId,jdbcType=BIGINT}, #{classDesc,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.classes.pojo.Classes" >
+    insert into classes
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="classId != null" >
+        class_id,
+      </if>
+      <if test="classTitle != null" >
+        class_title,
+      </if>
+      <if test="classSellPoint != null" >
+        class_sell_point,
+      </if>
+      <if test="classPrice != null" >
+        class_price,
+      </if>
+      <if test="classImg != null" >
+        class_img,
+      </if>
+      <if test="classCid != null" >
+        class_cid,
+      </if>
+      <if test="classStatus != null" >
+        class_status,
+      </if>
+      <if test="classCreated != null" >
+        class_created,
+      </if>
+      <if test="classUpdate != null" >
+        class_update,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="classDesc != null" >
+        class_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="classId != null" >
+        #{classId,jdbcType=BIGINT},
+      </if>
+      <if test="classTitle != null" >
+        #{classTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="classSellPoint != null" >
+        #{classSellPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="classPrice != null" >
+        #{classPrice,jdbcType=BIGINT},
+      </if>
+      <if test="classImg != null" >
+        #{classImg,jdbcType=VARCHAR},
+      </if>
+      <if test="classCid != null" >
+        #{classCid,jdbcType=VARCHAR},
+      </if>
+      <if test="classStatus != null" >
+        #{classStatus,jdbcType=TINYINT},
+      </if>
+      <if test="classCreated != null" >
+        #{classCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="classUpdate != null" >
+        #{classUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="classDesc != null" >
+        #{classDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.classes.pojo.ClassesExample" resultType="java.lang.Integer" >
+    select count(*) from classes
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update classes
+    <set >
+      <if test="record.classId != null" >
+        class_id = #{record.classId,jdbcType=BIGINT},
+      </if>
+      <if test="record.classTitle != null" >
+        class_title = #{record.classTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classSellPoint != null" >
+        class_sell_point = #{record.classSellPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classPrice != null" >
+        class_price = #{record.classPrice,jdbcType=BIGINT},
+      </if>
+      <if test="record.classImg != null" >
+        class_img = #{record.classImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classCid != null" >
+        class_cid = #{record.classCid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classStatus != null" >
+        class_status = #{record.classStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.classCreated != null" >
+        class_created = #{record.classCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.classUpdate != null" >
+        class_update = #{record.classUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.companyId != null" >
+        company_id = #{record.companyId,jdbcType=BIGINT},
+      </if>
+      <if test="record.classDesc != null" >
+        class_desc = #{record.classDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update classes
+    set class_id = #{record.classId,jdbcType=BIGINT},
+      class_title = #{record.classTitle,jdbcType=VARCHAR},
+      class_sell_point = #{record.classSellPoint,jdbcType=VARCHAR},
+      class_price = #{record.classPrice,jdbcType=BIGINT},
+      class_img = #{record.classImg,jdbcType=VARCHAR},
+      class_cid = #{record.classCid,jdbcType=VARCHAR},
+      class_status = #{record.classStatus,jdbcType=TINYINT},
+      class_created = #{record.classCreated,jdbcType=TIMESTAMP},
+      class_update = #{record.classUpdate,jdbcType=TIMESTAMP},
+      company_id = #{record.companyId,jdbcType=BIGINT},
+      class_desc = #{record.classDesc,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update classes
+    set class_id = #{record.classId,jdbcType=BIGINT},
+      class_title = #{record.classTitle,jdbcType=VARCHAR},
+      class_sell_point = #{record.classSellPoint,jdbcType=VARCHAR},
+      class_price = #{record.classPrice,jdbcType=BIGINT},
+      class_img = #{record.classImg,jdbcType=VARCHAR},
+      class_cid = #{record.classCid,jdbcType=VARCHAR},
+      class_status = #{record.classStatus,jdbcType=TINYINT},
+      class_created = #{record.classCreated,jdbcType=TIMESTAMP},
+      class_update = #{record.classUpdate,jdbcType=TIMESTAMP},
+      company_id = #{record.companyId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.classes.pojo.Classes" >
+    update classes
+    <set >
+      <if test="classTitle != null" >
+        class_title = #{classTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="classSellPoint != null" >
+        class_sell_point = #{classSellPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="classPrice != null" >
+        class_price = #{classPrice,jdbcType=BIGINT},
+      </if>
+      <if test="classImg != null" >
+        class_img = #{classImg,jdbcType=VARCHAR},
+      </if>
+      <if test="classCid != null" >
+        class_cid = #{classCid,jdbcType=VARCHAR},
+      </if>
+      <if test="classStatus != null" >
+        class_status = #{classStatus,jdbcType=TINYINT},
+      </if>
+      <if test="classCreated != null" >
+        class_created = #{classCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="classUpdate != null" >
+        class_update = #{classUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="classDesc != null" >
+        class_desc = #{classDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where class_id = #{classId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.classes.pojo.Classes" >
+    update classes
+    set class_title = #{classTitle,jdbcType=VARCHAR},
+      class_sell_point = #{classSellPoint,jdbcType=VARCHAR},
+      class_price = #{classPrice,jdbcType=BIGINT},
+      class_img = #{classImg,jdbcType=VARCHAR},
+      class_cid = #{classCid,jdbcType=VARCHAR},
+      class_status = #{classStatus,jdbcType=TINYINT},
+      class_created = #{classCreated,jdbcType=TIMESTAMP},
+      class_update = #{classUpdate,jdbcType=TIMESTAMP},
+      company_id = #{companyId,jdbcType=BIGINT},
+      class_desc = #{classDesc,jdbcType=LONGVARCHAR}
+    where class_id = #{classId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.classes.pojo.Classes" >
+    update classes
+    set class_title = #{classTitle,jdbcType=VARCHAR},
+      class_sell_point = #{classSellPoint,jdbcType=VARCHAR},
+      class_price = #{classPrice,jdbcType=BIGINT},
+      class_img = #{classImg,jdbcType=VARCHAR},
+      class_cid = #{classCid,jdbcType=VARCHAR},
+      class_status = #{classStatus,jdbcType=TINYINT},
+      class_created = #{classCreated,jdbcType=TIMESTAMP},
+      class_update = #{classUpdate,jdbcType=TIMESTAMP},
+      company_id = #{companyId,jdbcType=BIGINT}
+    where class_id = #{classId,jdbcType=BIGINT}
+  </update>
+  
+  <select id="findAll" resultMap="BaseResultMap" parameterType="com.common.utils.PageBean">
+ 	Select * from classes limit #{index},#{pageSize}
+ </select>
+ 
+</mapper>
