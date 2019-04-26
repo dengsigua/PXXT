@@ -2,11 +2,7 @@ package com.sign_up.pojo;
 
 import java.util.Date;
 
-public class SignUp {
-    private Long signUpId;
-
-    private Date signUpTime;
-
+public class SignUp extends SignUpKey {
     private String signUpName;
 
     private String signUpState;
@@ -15,21 +11,7 @@ public class SignUp {
 
     private String signUpEmail;
 
-    public Long getSignUpId() {
-        return signUpId;
-    }
-
-    public void setSignUpId(Long signUpId) {
-        this.signUpId = signUpId;
-    }
-
-    public Date getSignUpTime() {
-        return signUpTime;
-    }
-
-    public void setSignUpTime(Date signUpTime) {
-        this.signUpTime = signUpTime;
-    }
+    private Date signUpTime;
 
     public String getSignUpName() {
         return signUpName;
@@ -61,5 +43,13 @@ public class SignUp {
 
     public void setSignUpEmail(String signUpEmail) {
         this.signUpEmail = signUpEmail == null ? null : signUpEmail.trim();
+    }
+
+    public Date getSignUpTime() {
+        return signUpTime;
+    }
+
+    public void setSignUpTime(Date signUpTime) {
+        this.signUpTime = signUpTime;
     }
 }

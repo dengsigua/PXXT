@@ -42,8 +42,8 @@ public class Sign_upServiceImpl implements Sign_upService{
 			if(!"".equals(sp.getSignUpName())&&sp.getSignUpName()!=null){
 				criteria.andSignUpNameLike("%"+sp.getSignUpName()+"%");
 			}
-			if(!"".equals(sp.getSignUpId())&&sp.getSignUpId()!=null){
-				criteria.andSignUpIdEqualTo(sp.getSignUpId());
+			if(!"".equals(sp.getClassId())&&sp.getClassId()!=null){
+				criteria.andClassIdEqualTo(sp.getClassId());
 		
 			}
 		}
@@ -74,12 +74,21 @@ public class Sign_upServiceImpl implements Sign_upService{
 	
 	@Override
 	public void updateSignUpInfo(SignUp sp) {
-		mapper.updateByPrimaryKey(sp);
+		//mapper.updateByPrimaryKey(sp);
+		mapper.updateByPrimaryKeySelective(sp);
 	}
 	
 	@Override
 	public void deleteSignUpById(Long id) {
-		mapper.deleteByPrimaryKey(id);
+		//mapper.deleteByPrimaryKey(id);
+		
+		SignUpExample example = new SignUpExample();
+		Criteria criteria = example.createCriteria();
+		System.out.println(id);		
+		if(id!=null){
+				criteria.andClassIdEqualTo(id);
+			}
+		mapper.deleteByExample(example);
 	}
 	
 

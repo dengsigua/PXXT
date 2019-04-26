@@ -37,6 +37,12 @@
 			   });
 			
 		} 
+		
+		function toIntoPeriod(id,Imgsource) {
+			alert(id+"....");
+			window.location.href = "${pageContext.request.contextPath }/period/toList?classId="+id;
+			//$.post("${pageContext.request.contextPath }/period/toList",{classId:id,Imgsource:Imgsource});
+		}
 		</script>
 	</head>
 	<body>

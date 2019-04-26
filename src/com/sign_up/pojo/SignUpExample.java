@@ -2,16 +2,15 @@ package com.sign_up.pojo;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 public class SignUpExample {
     protected String orderByClause;
 
     protected boolean distinct;
- 
-    
+
     protected List<Criteria> oredCriteria;
+    
     private int index;
     private int pageSize=1;
     
@@ -126,149 +125,123 @@ public class SignUpExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        protected void addCriterionForJDBCTime(String condition, Date value, String property) {
-            if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Time(value.getTime()), property);
-        }
-
-        protected void addCriterionForJDBCTime(String condition, List<Date> values, String property) {
-            if (values == null || values.size() == 0) {
-                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
-            }
-            List<java.sql.Time> timeList = new ArrayList<java.sql.Time>();
-            Iterator<Date> iter = values.iterator();
-            while (iter.hasNext()) {
-                timeList.add(new java.sql.Time(iter.next().getTime()));
-            }
-            addCriterion(condition, timeList, property);
-        }
-
-        protected void addCriterionForJDBCTime(String condition, Date value1, Date value2, String property) {
-            if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Time(value1.getTime()), new java.sql.Time(value2.getTime()), property);
-        }
-
-        public Criteria andSignUpIdIsNull() {
-            addCriterion("sign_up_id is null");
+        public Criteria andCompanyIdIsNull() {
+            addCriterion("company_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andSignUpIdIsNotNull() {
-            addCriterion("sign_up_id is not null");
+        public Criteria andCompanyIdIsNotNull() {
+            addCriterion("company_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSignUpIdEqualTo(Long value) {
-            addCriterion("sign_up_id =", value, "signUpId");
+        public Criteria andCompanyIdEqualTo(Long value) {
+            addCriterion("company_id =", value, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andSignUpIdNotEqualTo(Long value) {
-            addCriterion("sign_up_id <>", value, "signUpId");
+        public Criteria andCompanyIdNotEqualTo(Long value) {
+            addCriterion("company_id <>", value, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andSignUpIdGreaterThan(Long value) {
-            addCriterion("sign_up_id >", value, "signUpId");
+        public Criteria andCompanyIdGreaterThan(Long value) {
+            addCriterion("company_id >", value, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andSignUpIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("sign_up_id >=", value, "signUpId");
+        public Criteria andCompanyIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("company_id >=", value, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andSignUpIdLessThan(Long value) {
-            addCriterion("sign_up_id <", value, "signUpId");
+        public Criteria andCompanyIdLessThan(Long value) {
+            addCriterion("company_id <", value, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andSignUpIdLessThanOrEqualTo(Long value) {
-            addCriterion("sign_up_id <=", value, "signUpId");
+        public Criteria andCompanyIdLessThanOrEqualTo(Long value) {
+            addCriterion("company_id <=", value, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andSignUpIdIn(List<Long> values) {
-            addCriterion("sign_up_id in", values, "signUpId");
+        public Criteria andCompanyIdIn(List<Long> values) {
+            addCriterion("company_id in", values, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andSignUpIdNotIn(List<Long> values) {
-            addCriterion("sign_up_id not in", values, "signUpId");
+        public Criteria andCompanyIdNotIn(List<Long> values) {
+            addCriterion("company_id not in", values, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andSignUpIdBetween(Long value1, Long value2) {
-            addCriterion("sign_up_id between", value1, value2, "signUpId");
+        public Criteria andCompanyIdBetween(Long value1, Long value2) {
+            addCriterion("company_id between", value1, value2, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andSignUpIdNotBetween(Long value1, Long value2) {
-            addCriterion("sign_up_id not between", value1, value2, "signUpId");
+        public Criteria andCompanyIdNotBetween(Long value1, Long value2) {
+            addCriterion("company_id not between", value1, value2, "companyId");
             return (Criteria) this;
         }
 
-        public Criteria andSignUpTimeIsNull() {
-            addCriterion("sign_up_time is null");
+        public Criteria andClassIdIsNull() {
+            addCriterion("class_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andSignUpTimeIsNotNull() {
-            addCriterion("sign_up_time is not null");
+        public Criteria andClassIdIsNotNull() {
+            addCriterion("class_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSignUpTimeEqualTo(Date value) {
-            addCriterionForJDBCTime("sign_up_time =", value, "signUpTime");
+        public Criteria andClassIdEqualTo(Long value) {
+            addCriterion("class_id =", value, "classId");
             return (Criteria) this;
         }
 
-        public Criteria andSignUpTimeNotEqualTo(Date value) {
-            addCriterionForJDBCTime("sign_up_time <>", value, "signUpTime");
+        public Criteria andClassIdNotEqualTo(Long value) {
+            addCriterion("class_id <>", value, "classId");
             return (Criteria) this;
         }
 
-        public Criteria andSignUpTimeGreaterThan(Date value) {
-            addCriterionForJDBCTime("sign_up_time >", value, "signUpTime");
+        public Criteria andClassIdGreaterThan(Long value) {
+            addCriterion("class_id >", value, "classId");
             return (Criteria) this;
         }
 
-        public Criteria andSignUpTimeGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCTime("sign_up_time >=", value, "signUpTime");
+        public Criteria andClassIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("class_id >=", value, "classId");
             return (Criteria) this;
         }
 
-        public Criteria andSignUpTimeLessThan(Date value) {
-            addCriterionForJDBCTime("sign_up_time <", value, "signUpTime");
+        public Criteria andClassIdLessThan(Long value) {
+            addCriterion("class_id <", value, "classId");
             return (Criteria) this;
         }
 
-        public Criteria andSignUpTimeLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCTime("sign_up_time <=", value, "signUpTime");
+        public Criteria andClassIdLessThanOrEqualTo(Long value) {
+            addCriterion("class_id <=", value, "classId");
             return (Criteria) this;
         }
 
-        public Criteria andSignUpTimeIn(List<Date> values) {
-            addCriterionForJDBCTime("sign_up_time in", values, "signUpTime");
+        public Criteria andClassIdIn(List<Long> values) {
+            addCriterion("class_id in", values, "classId");
             return (Criteria) this;
         }
 
-        public Criteria andSignUpTimeNotIn(List<Date> values) {
-            addCriterionForJDBCTime("sign_up_time not in", values, "signUpTime");
+        public Criteria andClassIdNotIn(List<Long> values) {
+            addCriterion("class_id not in", values, "classId");
             return (Criteria) this;
         }
 
-        public Criteria andSignUpTimeBetween(Date value1, Date value2) {
-            addCriterionForJDBCTime("sign_up_time between", value1, value2, "signUpTime");
+        public Criteria andClassIdBetween(Long value1, Long value2) {
+            addCriterion("class_id between", value1, value2, "classId");
             return (Criteria) this;
         }
 
-        public Criteria andSignUpTimeNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCTime("sign_up_time not between", value1, value2, "signUpTime");
+        public Criteria andClassIdNotBetween(Long value1, Long value2) {
+            addCriterion("class_id not between", value1, value2, "classId");
             return (Criteria) this;
         }
 
@@ -549,6 +522,66 @@ public class SignUpExample {
 
         public Criteria andSignUpEmailNotBetween(String value1, String value2) {
             addCriterion("sign_up_email not between", value1, value2, "signUpEmail");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignUpTimeIsNull() {
+            addCriterion("sign_up_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignUpTimeIsNotNull() {
+            addCriterion("sign_up_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignUpTimeEqualTo(Date value) {
+            addCriterion("sign_up_time =", value, "signUpTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignUpTimeNotEqualTo(Date value) {
+            addCriterion("sign_up_time <>", value, "signUpTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignUpTimeGreaterThan(Date value) {
+            addCriterion("sign_up_time >", value, "signUpTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignUpTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("sign_up_time >=", value, "signUpTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignUpTimeLessThan(Date value) {
+            addCriterion("sign_up_time <", value, "signUpTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignUpTimeLessThanOrEqualTo(Date value) {
+            addCriterion("sign_up_time <=", value, "signUpTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignUpTimeIn(List<Date> values) {
+            addCriterion("sign_up_time in", values, "signUpTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignUpTimeNotIn(List<Date> values) {
+            addCriterion("sign_up_time not in", values, "signUpTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignUpTimeBetween(Date value1, Date value2) {
+            addCriterion("sign_up_time between", value1, value2, "signUpTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignUpTimeNotBetween(Date value1, Date value2) {
+            addCriterion("sign_up_time not between", value1, value2, "signUpTime");
             return (Criteria) this;
         }
     }

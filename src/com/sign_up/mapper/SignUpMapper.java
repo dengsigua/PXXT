@@ -2,6 +2,7 @@ package com.sign_up.mapper;
 
 import com.sign_up.pojo.SignUp;
 import com.sign_up.pojo.SignUpExample;
+import com.sign_up.pojo.SignUpKey;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,7 +11,7 @@ public interface SignUpMapper {
 
     int deleteByExample(SignUpExample example);
 
-    int deleteByPrimaryKey(Long signUpId);
+    int deleteByPrimaryKey(SignUpKey key);
 
     int insert(SignUp record);
 
@@ -18,7 +19,7 @@ public interface SignUpMapper {
 
     List<SignUp> selectByExample(SignUpExample example);
 
-    SignUp selectByPrimaryKey(Long signUpId);
+    SignUp selectByPrimaryKey(SignUpKey key);
 
     int updateByExampleSelective(@Param("record") SignUp record, @Param("example") SignUpExample example);
 

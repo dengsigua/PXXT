@@ -69,7 +69,7 @@ public class Sign_upController {
 	public PageBean findStudent(SignUp sp, @RequestParam(required=true,defaultValue="1") Integer page,
             @RequestParam(required=false,defaultValue="10") Integer rows){		
 		    int index = (page-1)*rows;
-		    System.out.println("xxxxxx:"+sp.getSignUpId()+"xxxxxx:"+sp.getSignUpName());
+		    System.out.println("xxxxxx:"+sp.getClassId()+"xxxxxx:"+sp.getSignUpName());
 			List<SignUp> list = service.findSignup(sp, index, rows);
 			System.out.println(page+"......"+rows+"xxxx");
 			if(list==null||list.size()==0){
@@ -117,15 +117,14 @@ public class Sign_upController {
 		try{
 			System.out.println("b");	
 			service.updateSignUpInfo(sp);
-			//return "sign_up/findsignup";
 			result.setSuccess(true);
 		}catch(Exception e){
 			e.printStackTrace();
 			System.out.println("c");
-			model.addAttribute("msg", "�༭ʧ�ܣ�");
+			model.addAttribute("msg", "编辑失败");
 			model.addAttribute("SignUp", sp);
 			result.setSuccess(false);
-			result.setErrorMsg("�༭ʧ��");	
+			result.setErrorMsg("编辑失败");	
 			//return "sign_up/findsignup";
 		}
 		return result;
@@ -153,6 +152,7 @@ public class Sign_upController {
 		 return result;
 	}
 	
+
 	
 }		
 		

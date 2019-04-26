@@ -15,6 +15,7 @@ import com.classes.pojo.Classes;
 import com.classes.service.ClassesService;
 import com.common.utils.PageBean;
 import com.common.utils.ResultMap;
+import com.company.pojo.Company;
 import com.period.pojo.Period;
 import com.period.service.periodService;
 
@@ -33,11 +34,19 @@ public class periodController {
 		Long id = Long.parseLong(classId);
 		System.out.println("toList+id:"+id);
 		Classes cla = claService.findClassById(id);
+		
 		System.out.println("toList:"+cla);
+		System.out.println("toList:"+intId);
 		model.addAttribute("PeriodClass", cla);
-		model.addAttribute("classId", intId);
+		session.setAttribute("PeriodClass", cla);
 		session.setAttribute("classId", intId);
-		return "period/periodList";
+		Company com = (Company) session.getAttribute("company");
+		if(com==null){
+			return "common/xiangqing2";
+		}else{
+			return "period/periodList";
+		}
+		
 	}
 	
 	

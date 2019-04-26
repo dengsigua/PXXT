@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.classes.pojo.Classes;
 import com.common.utils.PageBean;
+import com.sign_up.pojo.SignUp;
 import com.student.pojo.Student;
 
 
@@ -77,5 +78,6 @@ public interface StudentService {
 	 * @return
 	 */
 	public int selectCount(Student student);
+	public void insertSignup(SignUp sp);
 
 }

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 
 import com.common.utils.PageBean;
+import com.sign_up.mapper.SignUpMapper;
+import com.sign_up.pojo.SignUp;
 import com.student.mapper.StudentMapper;
 import com.student.pojo.Student;
 import com.student.pojo.StudentExample;
@@ -17,6 +19,8 @@ public class StudentServiceImpl implements StudentService{
 	@Autowired
 	private StudentMapper mapper;
 
+	@Autowired
+	private SignUpMapper mapper1;
 	
 	@Override
 	public Student findStudentById(Long id) {
@@ -127,7 +131,10 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	
-
+	@Override
+	public void insertSignup(SignUp sp) {
+		mapper1.insert(sp);
+	}
 	
 	
 }

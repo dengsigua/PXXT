@@ -15,6 +15,7 @@ import com.classes.pojo.Classes;
 import com.common.utils.PageBean;
 import com.common.utils.ResultMap;
 import com.company.pojo.Company;
+import com.sign_up.pojo.SignUp;
 import com.student.pojo.Student;
 import com.student.service.StudentService;
 
@@ -159,4 +160,25 @@ public class StudentController {
         return "common/login";				
 	}
 	
+	
+	/**
+	 * 课程报名
+	 * @return
+	 */
+	@RequestMapping("class_signup")
+	public String Class_signup(HttpSession session,Model model,SignUp sp){
+		System.out.println(sp);
+		try{
+			System.out.println("b");
+			System.out.println(sp);
+			service.insertSignup(sp);
+			model.addAttribute("msg1", "报名成功");
+			return "common/dingdanzhongxin";
+		}catch(Exception e){
+			System.out.println("c");
+			model.addAttribute("msg1", "报名失败");
+			model.addAttribute("signup", sp);	
+			return "student/class_signup";
+		}
+	}
 }

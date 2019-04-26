@@ -34,12 +34,13 @@
 	<table id="dg" class="easyui-datagrid" title="报名列表" 
 			data-options="rownumbers:true,url:'${pageContext.request.contextPath }/sign_up/findsignup',method:'get',toolbar:'#tb',collapsible:true,remoteSort:false,
 				multiSort:true"
-			pagination="true" idField="signUpId"
+			pagination="true" idField="classId"
 			rownumbers="true" fitColumns="true"  nowrap="true">
 		<thead>
 			<tr>
 			    <th data-options="field:'ck',checkbox:true" ></th>
-				<th data-options="field:'signUpId',width:170,align:'center',sortable:true">报名ID</th>
+				<th data-options="field:'companyId',width:170,align:'center',sortable:true">机构ID</th>
+				<th data-options="field:'classId',width:170,align:'center',sortable:true">课程ID</th>
 				<th data-options="field:'signUpName',width:170,align:'center',sortable:true">报名姓名</th>
 				<th data-options="field:'signUpTel',width:170,align:'center',sortable:true">联系方式</th>
 				<th data-options="field:'signUpEmail',width:170,align:'center',sortable:true">Email</th>
@@ -92,7 +93,10 @@ return myformatter(date);
 		<form id="fm" method="post" novalidate style="margin:0;padding:20px 50px">
 			<h3>报名信息</h3>
 			<div style="margin-bottom:10px">
-				<input name="signUpId" class="easyui-textbox" required="true" label="报名id:" style="width:100%">
+				<input name="companyId" class="easyui-textbox" required="true" label="机构id:" style="width:100%">
+			</div>
+			<div style="margin-bottom:10px">
+				<input name="classId" class="easyui-textbox" required="true" label="课程id:" style="width:100%">
 			</div>
 			<div style="margin-bottom:10px">
 				<input name="signUpName" class="easyui-textbox" required="true" label="报名昵称:" style="width:100%">
@@ -125,11 +129,12 @@ return myformatter(date);
 		}
 		function editUser(){
 			var row = $('#dg').datagrid('getSelected');
-			alert(row.signUpId);
+			alert(row.classId);
+			alert(row.companyId);
 			if (row){
 				$('#dlg').dialog('open').dialog('center').dialog('setTitle','编辑');
 				$('#fm').form('load',row);
-				url = '${pageContext.request.contextPath}/sign_up/editsignup?id='+row.signUpId;
+				url = '${pageContext.request.contextPath}/sign_up/editsignup?id='+row.classId;
 			}
 		}
 		function saveUser(){		
@@ -202,7 +207,7 @@ return myformatter(date);
 			if (rows){
 				var array = new Array();
 				for(var i=0;i<rows.length;i++){
-					var id = rows[i].signUpId;
+					var id = rows[i].classId;
 					array.push(id);
 				}
 				alert(array);
@@ -232,7 +237,8 @@ return myformatter(date);
 			var searchids=$('#searchid').val();
 			alert(searchids);
 			$('#dg').datagrid('load',{
-				signUpId: $('#searchid').val(),
+				//signUpName: $('#searchid').val(),
+				classId: $('#searchid').val(),
 			});
 		}
 		

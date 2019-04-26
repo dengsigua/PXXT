@@ -198,6 +198,11 @@ public class CommonController {
 	public String xiangqing(){
 		return "common/xiangqing";
 	}
+	
+	@RequestMapping("xiangqing2")
+	public String xiangqing2(){
+		return "common/xiangqing2";
+	}
 	/**
 	 * 订单中心页面
 	 * @return
