@@ -2,13 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sign_up.mapper.SignUpMapper" >
   <resultMap id="BaseResultMap" type="com.sign_up.pojo.SignUp" >
-    <id column="company_id" property="companyId" jdbcType="BIGINT" />
-    <id column="class_id" property="classId" jdbcType="BIGINT" />
+    <id column="sign_up_id" property="signUpId" jdbcType="VARCHAR" />
     <result column="sign_up_name" property="signUpName" jdbcType="VARCHAR" />
-    <result column="sign_up_state" property="signUpState" jdbcType="VARCHAR" />
     <result column="sign_up_tel" property="signUpTel" jdbcType="VARCHAR" />
     <result column="sign_up_email" property="signUpEmail" jdbcType="VARCHAR" />
+    <result column="sign_up_state" property="signUpState" jdbcType="VARCHAR" />
     <result column="sign_up_time" property="signUpTime" jdbcType="TIMESTAMP" />
+    <result column="company_id" property="companyId" jdbcType="BIGINT" />
+    <result column="class_id" property="classId" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,7 +70,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    company_id, class_id, sign_up_name, sign_up_state, sign_up_tel, sign_up_email, sign_up_time
+    sign_up_id, sign_up_name, sign_up_tel, sign_up_email, sign_up_state, sign_up_time, 
+    company_id, class_id
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sign_up.pojo.SignUpExample" >
     select
@@ -84,19 +86,17 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
-     limit #{index},#{pageSize}
+    limit #{index},#{pageSize}
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.sign_up.pojo.SignUpKey" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from sign_up
-    where company_id = #{companyId,jdbcType=BIGINT}
-      and class_id = #{classId,jdbcType=BIGINT}
+    where sign_up_id = #{signUpId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.sign_up.pojo.SignUpKey" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from sign_up
-    where company_id = #{companyId,jdbcType=BIGINT}
-      and class_id = #{classId,jdbcType=BIGINT}
+    where sign_up_id = #{signUpId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.sign_up.pojo.SignUpExample" >
     delete from sign_up
@@ -105,27 +105,21 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.sign_up.pojo.SignUp" >
-    insert into sign_up (company_id, class_id, sign_up_name, 
-      sign_up_state, sign_up_tel, sign_up_email, 
-      sign_up_time)
-    values (#{companyId,jdbcType=BIGINT}, #{classId,jdbcType=BIGINT}, #{signUpName,jdbcType=VARCHAR}, 
-      #{signUpState,jdbcType=VARCHAR}, #{signUpTel,jdbcType=VARCHAR}, #{signUpEmail,jdbcType=VARCHAR}, 
-      #{signUpTime,jdbcType=TIMESTAMP})
+    insert into sign_up (sign_up_id, sign_up_name, sign_up_tel, 
+      sign_up_email, sign_up_state, sign_up_time, 
+      company_id, class_id)
+    values (#{signUpId,jdbcType=VARCHAR}, #{signUpName,jdbcType=VARCHAR}, #{signUpTel,jdbcType=VARCHAR}, 
+      #{signUpEmail,jdbcType=VARCHAR}, #{signUpState,jdbcType=VARCHAR}, #{signUpTime,jdbcType=TIMESTAMP}, 
+      #{companyId,jdbcType=BIGINT}, #{classId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.sign_up.pojo.SignUp" >
     insert into sign_up
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="companyId != null" >
-        company_id,
-      </if>
-      <if test="classId != null" >
-        class_id,
+      <if test="signUpId != null" >
+        sign_up_id,
       </if>
       <if test="signUpName != null" >
         sign_up_name,
-      </if>
-      <if test="signUpState != null" >
-        sign_up_state,
       </if>
       <if test="signUpTel != null" >
         sign_up_tel,
@@ -133,22 +127,25 @@
       <if test="signUpEmail != null" >
         sign_up_email,
       </if>
+      <if test="signUpState != null" >
+        sign_up_state,
+      </if>
       <if test="signUpTime != null" >
         sign_up_time,
       </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="companyId != null" >
-        #{companyId,jdbcType=BIGINT},
+        company_id,
       </if>
       <if test="classId != null" >
-        #{classId,jdbcType=BIGINT},
+        class_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="signUpId != null" >
+        #{signUpId,jdbcType=VARCHAR},
       </if>
       <if test="signUpName != null" >
         #{signUpName,jdbcType=VARCHAR},
-      </if>
-      <if test="signUpState != null" >
-        #{signUpState,jdbcType=VARCHAR},
       </if>
       <if test="signUpTel != null" >
         #{signUpTel,jdbcType=VARCHAR},
@@ -156,8 +153,17 @@
       <if test="signUpEmail != null" >
         #{signUpEmail,jdbcType=VARCHAR},
       </if>
+      <if test="signUpState != null" >
+        #{signUpState,jdbcType=VARCHAR},
+      </if>
       <if test="signUpTime != null" >
         #{signUpTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="classId != null" >
+        #{classId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -170,17 +176,11 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update sign_up
     <set >
-      <if test="record.companyId != null" >
-        company_id = #{record.companyId,jdbcType=BIGINT},
-      </if>
-      <if test="record.classId != null" >
-        class_id = #{record.classId,jdbcType=BIGINT},
+      <if test="record.signUpId != null" >
+        sign_up_id = #{record.signUpId,jdbcType=VARCHAR},
       </if>
       <if test="record.signUpName != null" >
         sign_up_name = #{record.signUpName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.signUpState != null" >
-        sign_up_state = #{record.signUpState,jdbcType=VARCHAR},
       </if>
       <if test="record.signUpTel != null" >
         sign_up_tel = #{record.signUpTel,jdbcType=VARCHAR},
@@ -188,8 +188,17 @@
       <if test="record.signUpEmail != null" >
         sign_up_email = #{record.signUpEmail,jdbcType=VARCHAR},
       </if>
+      <if test="record.signUpState != null" >
+        sign_up_state = #{record.signUpState,jdbcType=VARCHAR},
+      </if>
       <if test="record.signUpTime != null" >
         sign_up_time = #{record.signUpTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.companyId != null" >
+        company_id = #{record.companyId,jdbcType=BIGINT},
+      </if>
+      <if test="record.classId != null" >
+        class_id = #{record.classId,jdbcType=BIGINT},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -198,13 +207,14 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update sign_up
-    set company_id = #{record.companyId,jdbcType=BIGINT},
-      class_id = #{record.classId,jdbcType=BIGINT},
+    set sign_up_id = #{record.signUpId,jdbcType=VARCHAR},
       sign_up_name = #{record.signUpName,jdbcType=VARCHAR},
-      sign_up_state = #{record.signUpState,jdbcType=VARCHAR},
       sign_up_tel = #{record.signUpTel,jdbcType=VARCHAR},
       sign_up_email = #{record.signUpEmail,jdbcType=VARCHAR},
-      sign_up_time = #{record.signUpTime,jdbcType=TIMESTAMP}
+      sign_up_state = #{record.signUpState,jdbcType=VARCHAR},
+      sign_up_time = #{record.signUpTime,jdbcType=TIMESTAMP},
+      company_id = #{record.companyId,jdbcType=BIGINT},
+      class_id = #{record.classId,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -215,30 +225,36 @@
       <if test="signUpName != null" >
         sign_up_name = #{signUpName,jdbcType=VARCHAR},
       </if>
-      <if test="signUpState != null" >
-        sign_up_state = #{signUpState,jdbcType=VARCHAR},
-      </if>
       <if test="signUpTel != null" >
         sign_up_tel = #{signUpTel,jdbcType=VARCHAR},
       </if>
       <if test="signUpEmail != null" >
         sign_up_email = #{signUpEmail,jdbcType=VARCHAR},
       </if>
+      <if test="signUpState != null" >
+        sign_up_state = #{signUpState,jdbcType=VARCHAR},
+      </if>
       <if test="signUpTime != null" >
         sign_up_time = #{signUpTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="classId != null" >
+        class_id = #{classId,jdbcType=BIGINT},
+      </if>
     </set>
-    where company_id = #{companyId,jdbcType=BIGINT}
-      and class_id = #{classId,jdbcType=BIGINT}
+    where sign_up_id = #{signUpId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sign_up.pojo.SignUp" >
     update sign_up
     set sign_up_name = #{signUpName,jdbcType=VARCHAR},
-      sign_up_state = #{signUpState,jdbcType=VARCHAR},
       sign_up_tel = #{signUpTel,jdbcType=VARCHAR},
       sign_up_email = #{signUpEmail,jdbcType=VARCHAR},
-      sign_up_time = #{signUpTime,jdbcType=TIMESTAMP}
-    where company_id = #{companyId,jdbcType=BIGINT}
-      and class_id = #{classId,jdbcType=BIGINT}
+      sign_up_state = #{signUpState,jdbcType=VARCHAR},
+      sign_up_time = #{signUpTime,jdbcType=TIMESTAMP},
+      company_id = #{companyId,jdbcType=BIGINT},
+      class_id = #{classId,jdbcType=BIGINT}
+    where sign_up_id = #{signUpId,jdbcType=VARCHAR}
   </update>
 </mapper>

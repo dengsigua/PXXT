@@ -1,6 +1,7 @@
 package com.student.service.impl;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -133,6 +134,8 @@ public class StudentServiceImpl implements StudentService{
 	
 	@Override
 	public void insertSignup(SignUp sp) {
+	
+		sp.setSignUpId(UUID.randomUUID().toString());
 		mapper1.insert(sp);
 	}
 	

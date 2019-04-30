@@ -30,7 +30,7 @@ public class PictureServiceImpl implements PictureService {
 				System.out.println(string);
 			}
 			result.setError(0);
-			String url = "192.168.80.133/"+str[0]+"/"+str[1];
+			String url = "192.168.80.136/"+str[0]+"/"+str[1];
 			System.out.println(url);
 			result.setUrl(url);
 		} catch (Exception e) {

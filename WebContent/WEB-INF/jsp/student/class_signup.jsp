@@ -59,7 +59,7 @@ alert("bb");
 </script>
 </head>
 <body>
-<form  method="post" id="class_signup_form" action="${pageContext.request.contextPath }/student/class_signup" >
+<form  method="post" id="class_signup_form" action="${pageContext.request.contextPath }/sign_up/class_signup" >
 		<div class="regist">
 			<div class="regist_center">
 				<div class="regist_top">

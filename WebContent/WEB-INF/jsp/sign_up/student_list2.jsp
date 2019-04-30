@@ -39,6 +39,7 @@
 		<thead>
 			<tr>
 			    <th data-options="field:'ck',checkbox:true" ></th>
+			    <th data-options="field:'signUpId',width:170,align:'center',sortable:true">报名ID</th>
 				<th data-options="field:'companyId',width:170,align:'center',sortable:true">机构ID</th>
 				<th data-options="field:'classId',width:170,align:'center',sortable:true">课程ID</th>
 				<th data-options="field:'signUpName',width:170,align:'center',sortable:true">报名姓名</th>
@@ -93,6 +94,9 @@ return myformatter(date);
 		<form id="fm" method="post" novalidate style="margin:0;padding:20px 50px">
 			<h3>报名信息</h3>
 			<div style="margin-bottom:10px">
+				<input name="signUpId" class="easyui-textbox" required="true" label="报名id:" style="width:100%">
+			</div>
+			<div style="margin-bottom:10px">
 				<input name="companyId" class="easyui-textbox" required="true" label="机构id:" style="width:100%">
 			</div>
 			<div style="margin-bottom:10px">
@@ -134,7 +138,7 @@ return myformatter(date);
 			if (row){
 				$('#dlg').dialog('open').dialog('center').dialog('setTitle','编辑');
 				$('#fm').form('load',row);
-				url = '${pageContext.request.contextPath}/sign_up/editsignup?id='+row.classId;
+				url = '${pageContext.request.contextPath}/sign_up/editsignup?id='+row.signUpId;
 			}
 		}
 		function saveUser(){		
@@ -207,7 +211,7 @@ return myformatter(date);
 			if (rows){
 				var array = new Array();
 				for(var i=0;i<rows.length;i++){
-					var id = rows[i].classId;
+					var id = rows[i].signUpId;
 					array.push(id);
 				}
 				alert(array);

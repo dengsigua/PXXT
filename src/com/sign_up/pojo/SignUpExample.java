@@ -7,10 +7,10 @@ import java.util.List;
 public class SignUpExample {
     protected String orderByClause;
 
-    protected boolean distinct;
-
-    protected List<Criteria> oredCriteria;
+    protected boolean distinct;   
     
+    protected List<Criteria> oredCriteria;
+
     private int index;
     private int pageSize=1;
     
@@ -29,8 +29,7 @@ public class SignUpExample {
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 	}
-
-
+    
     public SignUpExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
@@ -125,123 +124,73 @@ public class SignUpExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andCompanyIdIsNull() {
-            addCriterion("company_id is null");
+        public Criteria andSignUpIdIsNull() {
+            addCriterion("sign_up_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdIsNotNull() {
-            addCriterion("company_id is not null");
+        public Criteria andSignUpIdIsNotNull() {
+            addCriterion("sign_up_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdEqualTo(Long value) {
-            addCriterion("company_id =", value, "companyId");
+        public Criteria andSignUpIdEqualTo(String value) {
+            addCriterion("sign_up_id =", value, "signUpId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdNotEqualTo(Long value) {
-            addCriterion("company_id <>", value, "companyId");
+        public Criteria andSignUpIdNotEqualTo(String value) {
+            addCriterion("sign_up_id <>", value, "signUpId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdGreaterThan(Long value) {
-            addCriterion("company_id >", value, "companyId");
+        public Criteria andSignUpIdGreaterThan(String value) {
+            addCriterion("sign_up_id >", value, "signUpId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("company_id >=", value, "companyId");
+        public Criteria andSignUpIdGreaterThanOrEqualTo(String value) {
+            addCriterion("sign_up_id >=", value, "signUpId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdLessThan(Long value) {
-            addCriterion("company_id <", value, "companyId");
+        public Criteria andSignUpIdLessThan(String value) {
+            addCriterion("sign_up_id <", value, "signUpId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdLessThanOrEqualTo(Long value) {
-            addCriterion("company_id <=", value, "companyId");
+        public Criteria andSignUpIdLessThanOrEqualTo(String value) {
+            addCriterion("sign_up_id <=", value, "signUpId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdIn(List<Long> values) {
-            addCriterion("company_id in", values, "companyId");
+        public Criteria andSignUpIdLike(String value) {
+            addCriterion("sign_up_id like", value, "signUpId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdNotIn(List<Long> values) {
-            addCriterion("company_id not in", values, "companyId");
+        public Criteria andSignUpIdNotLike(String value) {
+            addCriterion("sign_up_id not like", value, "signUpId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdBetween(Long value1, Long value2) {
-            addCriterion("company_id between", value1, value2, "companyId");
+        public Criteria andSignUpIdIn(List<String> values) {
+            addCriterion("sign_up_id in", values, "signUpId");
             return (Criteria) this;
         }
 
-        public Criteria andCompanyIdNotBetween(Long value1, Long value2) {
-            addCriterion("company_id not between", value1, value2, "companyId");
+        public Criteria andSignUpIdNotIn(List<String> values) {
+            addCriterion("sign_up_id not in", values, "signUpId");
             return (Criteria) this;
         }
 
-        public Criteria andClassIdIsNull() {
-            addCriterion("class_id is null");
+        public Criteria andSignUpIdBetween(String value1, String value2) {
+            addCriterion("sign_up_id between", value1, value2, "signUpId");
             return (Criteria) this;
         }
 
-        public Criteria andClassIdIsNotNull() {
-            addCriterion("class_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andClassIdEqualTo(Long value) {
-            addCriterion("class_id =", value, "classId");
-            return (Criteria) this;
-        }
-
-        public Criteria andClassIdNotEqualTo(Long value) {
-            addCriterion("class_id <>", value, "classId");
-            return (Criteria) this;
-        }
-
-        public Criteria andClassIdGreaterThan(Long value) {
-            addCriterion("class_id >", value, "classId");
-            return (Criteria) this;
-        }
-
-        public Criteria andClassIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("class_id >=", value, "classId");
-            return (Criteria) this;
-        }
-
-        public Criteria andClassIdLessThan(Long value) {
-            addCriterion("class_id <", value, "classId");
-            return (Criteria) this;
-        }
-
-        public Criteria andClassIdLessThanOrEqualTo(Long value) {
-            addCriterion("class_id <=", value, "classId");
-            return (Criteria) this;
-        }
-
-        public Criteria andClassIdIn(List<Long> values) {
-            addCriterion("class_id in", values, "classId");
-            return (Criteria) this;
-        }
-
-        public Criteria andClassIdNotIn(List<Long> values) {
-            addCriterion("class_id not in", values, "classId");
-            return (Criteria) this;
-        }
-
-        public Criteria andClassIdBetween(Long value1, Long value2) {
-            addCriterion("class_id between", value1, value2, "classId");
-            return (Criteria) this;
-        }
-
-        public Criteria andClassIdNotBetween(Long value1, Long value2) {
-            addCriterion("class_id not between", value1, value2, "classId");
+        public Criteria andSignUpIdNotBetween(String value1, String value2) {
+            addCriterion("sign_up_id not between", value1, value2, "signUpId");
             return (Criteria) this;
         }
 
@@ -312,76 +261,6 @@ public class SignUpExample {
 
         public Criteria andSignUpNameNotBetween(String value1, String value2) {
             addCriterion("sign_up_name not between", value1, value2, "signUpName");
-            return (Criteria) this;
-        }
-
-        public Criteria andSignUpStateIsNull() {
-            addCriterion("sign_up_state is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSignUpStateIsNotNull() {
-            addCriterion("sign_up_state is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSignUpStateEqualTo(String value) {
-            addCriterion("sign_up_state =", value, "signUpState");
-            return (Criteria) this;
-        }
-
-        public Criteria andSignUpStateNotEqualTo(String value) {
-            addCriterion("sign_up_state <>", value, "signUpState");
-            return (Criteria) this;
-        }
-
-        public Criteria andSignUpStateGreaterThan(String value) {
-            addCriterion("sign_up_state >", value, "signUpState");
-            return (Criteria) this;
-        }
-
-        public Criteria andSignUpStateGreaterThanOrEqualTo(String value) {
-            addCriterion("sign_up_state >=", value, "signUpState");
-            return (Criteria) this;
-        }
-
-        public Criteria andSignUpStateLessThan(String value) {
-            addCriterion("sign_up_state <", value, "signUpState");
-            return (Criteria) this;
-        }
-
-        public Criteria andSignUpStateLessThanOrEqualTo(String value) {
-            addCriterion("sign_up_state <=", value, "signUpState");
-            return (Criteria) this;
-        }
-
-        public Criteria andSignUpStateLike(String value) {
-            addCriterion("sign_up_state like", value, "signUpState");
-            return (Criteria) this;
-        }
-
-        public Criteria andSignUpStateNotLike(String value) {
-            addCriterion("sign_up_state not like", value, "signUpState");
-            return (Criteria) this;
-        }
-
-        public Criteria andSignUpStateIn(List<String> values) {
-            addCriterion("sign_up_state in", values, "signUpState");
-            return (Criteria) this;
-        }
-
-        public Criteria andSignUpStateNotIn(List<String> values) {
-            addCriterion("sign_up_state not in", values, "signUpState");
-            return (Criteria) this;
-        }
-
-        public Criteria andSignUpStateBetween(String value1, String value2) {
-            addCriterion("sign_up_state between", value1, value2, "signUpState");
-            return (Criteria) this;
-        }
-
-        public Criteria andSignUpStateNotBetween(String value1, String value2) {
-            addCriterion("sign_up_state not between", value1, value2, "signUpState");
             return (Criteria) this;
         }
 
@@ -525,6 +404,76 @@ public class SignUpExample {
             return (Criteria) this;
         }
 
+        public Criteria andSignUpStateIsNull() {
+            addCriterion("sign_up_state is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignUpStateIsNotNull() {
+            addCriterion("sign_up_state is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignUpStateEqualTo(String value) {
+            addCriterion("sign_up_state =", value, "signUpState");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignUpStateNotEqualTo(String value) {
+            addCriterion("sign_up_state <>", value, "signUpState");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignUpStateGreaterThan(String value) {
+            addCriterion("sign_up_state >", value, "signUpState");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignUpStateGreaterThanOrEqualTo(String value) {
+            addCriterion("sign_up_state >=", value, "signUpState");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignUpStateLessThan(String value) {
+            addCriterion("sign_up_state <", value, "signUpState");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignUpStateLessThanOrEqualTo(String value) {
+            addCriterion("sign_up_state <=", value, "signUpState");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignUpStateLike(String value) {
+            addCriterion("sign_up_state like", value, "signUpState");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignUpStateNotLike(String value) {
+            addCriterion("sign_up_state not like", value, "signUpState");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignUpStateIn(List<String> values) {
+            addCriterion("sign_up_state in", values, "signUpState");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignUpStateNotIn(List<String> values) {
+            addCriterion("sign_up_state not in", values, "signUpState");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignUpStateBetween(String value1, String value2) {
+            addCriterion("sign_up_state between", value1, value2, "signUpState");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignUpStateNotBetween(String value1, String value2) {
+            addCriterion("sign_up_state not between", value1, value2, "signUpState");
+            return (Criteria) this;
+        }
+
         public Criteria andSignUpTimeIsNull() {
             addCriterion("sign_up_time is null");
             return (Criteria) this;
@@ -582,6 +531,126 @@ public class SignUpExample {
 
         public Criteria andSignUpTimeNotBetween(Date value1, Date value2) {
             addCriterion("sign_up_time not between", value1, value2, "signUpTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyIdIsNull() {
+            addCriterion("company_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyIdIsNotNull() {
+            addCriterion("company_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyIdEqualTo(Long value) {
+            addCriterion("company_id =", value, "companyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyIdNotEqualTo(Long value) {
+            addCriterion("company_id <>", value, "companyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyIdGreaterThan(Long value) {
+            addCriterion("company_id >", value, "companyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("company_id >=", value, "companyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyIdLessThan(Long value) {
+            addCriterion("company_id <", value, "companyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyIdLessThanOrEqualTo(Long value) {
+            addCriterion("company_id <=", value, "companyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyIdIn(List<Long> values) {
+            addCriterion("company_id in", values, "companyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyIdNotIn(List<Long> values) {
+            addCriterion("company_id not in", values, "companyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyIdBetween(Long value1, Long value2) {
+            addCriterion("company_id between", value1, value2, "companyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCompanyIdNotBetween(Long value1, Long value2) {
+            addCriterion("company_id not between", value1, value2, "companyId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdIsNull() {
+            addCriterion("class_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdIsNotNull() {
+            addCriterion("class_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdEqualTo(Long value) {
+            addCriterion("class_id =", value, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdNotEqualTo(Long value) {
+            addCriterion("class_id <>", value, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdGreaterThan(Long value) {
+            addCriterion("class_id >", value, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("class_id >=", value, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdLessThan(Long value) {
+            addCriterion("class_id <", value, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdLessThanOrEqualTo(Long value) {
+            addCriterion("class_id <=", value, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdIn(List<Long> values) {
+            addCriterion("class_id in", values, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdNotIn(List<Long> values) {
+            addCriterion("class_id not in", values, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdBetween(Long value1, Long value2) {
+            addCriterion("class_id between", value1, value2, "classId");
+            return (Criteria) this;
+        }
+
+        public Criteria andClassIdNotBetween(Long value1, Long value2) {
+            addCriterion("class_id not between", value1, value2, "classId");
             return (Criteria) this;
         }
     }

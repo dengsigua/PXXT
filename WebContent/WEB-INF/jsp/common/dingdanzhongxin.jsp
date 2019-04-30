@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
@@ -9,6 +9,57 @@
         <meta name="author" content="order by dede58.com"/>
 		<title>我的课程</title>
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/css/style.css">
+		<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.8.3.js"></script>
+		<script type="text/javascript">
+		function doChangePage(currentPage) {
+			//alert(currentPage);
+//			alert(classTitle+"xxx"+classPrice1+"xxx"+classPrice2);
+			$.ajax({
+					type: "post", 
+					dataType:'json', //接受数据格式 
+					cache:false, 
+					data:{
+						classTitle:null,
+						classPrice1:null,
+						classPrice2:null,
+						currentPage:currentPage
+						}, 
+			        url:"${pageContext.request.contextPath }/sign_up/classeslist",
+			        success:function(dates){
+				      window.location.reload(true);
+					},
+					error: function() {
+		             
+					}
+
+			   });
+			
+		} 
+		
+		function toIntoPeriod(id,Imgsource) {
+			alert(id+"....");
+			window.location.href = "${pageContext.request.contextPath }/period/toList?classId="+id;
+			//$.post("${pageContext.request.contextPath }/period/toList",{classId:id,Imgsource:Imgsource});
+		}
+		
+		function myformatter(date){
+			var date = new Date(date);
+			var y = date.getFullYear(); 
+			var m = date.getMonth()+1; 
+			var d = date.getDate();
+			var h = date.getHours();
+			var min = date.getMinutes();
+			var s = date.getSeconds();
+			
+			return y+'-'+(m<10?('0'+m):m)+'-'+(d<10?('0'+d):d)+' '+(h<10?('0'+h):h)+':'+(min<10?('0'+min):min)+':'+(s<10?('0'+s):s); 
+			}
+		
+		$(function(){
+			var date = ${b.signUpTime};
+			myformatter(date);
+		});
+		</script>
+
 	</head>
 	<body>
 	<!-- start header -->
@@ -95,42 +146,43 @@
 		</div>
 		<div class="rtcont fr">
 			<div class="ddzxbt">我的课程</div>
-			<div class="ddxq">
-			
-				<div class="ddspt fl"><img width=100% height=100% src="${PeriodClass.classImg }" alt=""></div>
-				<div class="ddbh fl">课程:${PeriodClass.classTitle }</div>
+			<c:forEach items="${SignUpbean.rows}" var="b" varStatus="vs">
+			<div class="ddxq">								
+				
+     			<div class="ddspt fl"><img width=100% height=100% src="${b.classImg }" alt=""></div>
+				<div class="ddbh fl">${b.signUpId  }</div>
 				<div class="ztxx fr">
 					<ul>
 						<li>未付款</li>
-						<li>￥${PeriodClass.classPrice}</li>
-						<li>${signup.signUpTime }</li>
-						<li><a href="${pageContext.request.contextPath }/common/xiangqing">交易详情></a></li>
+						<li>¥ ${b.classPrice}</li>
+						<!--  <li>${b.signUpTime}</li>-->
+						<li>${b.signUpTime}</li>						
+						<li><a class="enter" href="javascript:void(0);" onclick="toIntoPeriod(${b.classId})">交易详情></a></li>
 						<div class="clear"></div>
 					</ul>
 				</div>
+				<div class="clear"></div>
+				</div>
+    			</c:forEach>
 				
-				<div class="clear"></div>
-			</div>
-			
-
 			
 			
-			<div class="ddxq">
-				<div class="ddspt fl"><img width=100% height=100% src="${pageContext.request.contextPath }/image/1.jpg" alt=""></div>
-				<div class="ddbh fl">订单号:170526435444865</div>
-				<div class="ztxx fr">
-					<ul>
-						<li>已付款</li>
-						<li>￥1999.00</li>
-						<li>2017/05/26 14:02</li>
-						<li><a href="${pageContext.request.contextPath }/common/xiangqing">交易详情></a></li>
-						<div class="clear"></div>
-					</ul>
-				</div>
-				<div class="clear"></div>
-			</div>
+			<div class="pagin">
+	    	<div class="message">共<i class="blue">${SignUpbean.total }</i>条记录，当前显示第&nbsp;<i class="blue">${SignUpbean.currentPage }&nbsp;</i>页      
+	       
+	        <a class="nextPage"
+			href="javascript:void(0);" onclick="doChangePage(${SignUpbean.currentPage==1?1:SignUpbean.currentPage-1})">&lt;&lt;上一页</a>
+			
+	       <a class="nextPage"
+	       href="javascript:void(0);" onclick="doChangePage(${SignUpbean.currentPage==bean.total?SignUpbean.total:SignUpbean.currentPage+1})">&lt;&lt;下一页</a>
+	       </div>
+       
+    		</div>	
 		</div>
 		<div class="clear"></div>
+		
+		   
+		
 		</div>
 	</div>
 <!-- self_info -->
@@ -140,4 +192,5 @@
 
 		</footer>
 	</body>
+	
 </html>

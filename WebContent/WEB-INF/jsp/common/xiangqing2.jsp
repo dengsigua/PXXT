@@ -6,10 +6,33 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>课程详情</title>
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/css/style.css">
+				<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.select.js"></script>
 		<script type="text/javascript">
 		function doLogin1(){
 				window.location.href = "${pageContext.request.contextPath }/common/class_signup"		
-		}</script>
+		}
+
+		function doshoppingcart(){
+			var classId = $("#classId").val();
+			var studentId = $("#studentId").val();
+			var url = "${pageContext.request.contextPath }/shopping_cart/addshoppingcart";
+			$.post(url,
+			{
+				classId:classId,
+				studentId:studentId
+			},
+			function(data){
+				if(data.state){
+					alert("成功添加购物车");
+				}else{
+					alert("该课程已添加购物车");
+				}
+			},"json");
+			alert(classId);
+		}
+		
+		</script>
 </head>
 <body>
 	<!-- start header -->
@@ -96,7 +119,7 @@
 	
 	<div class="jieshao mt20 w">
 		  <div class="left fl"><img src="${PeriodClass.classImg }" width=100% height=100%></div>
-		<div class="right fr">
+		  <div class="right fr">
 			<div class="h3 ml20 mt20">${PeriodClass.classTitle }</div>
 			<div class="jianjie mr40 ml20 mt10">${PeriodClass.classSellPoint }</div>
 			<div class="jiage ml20 mt10">预计${PeriodClass.classPrice}元/人</div>
@@ -108,22 +131,24 @@
 					<div class="left1 fl">课程描述：${PeriodClass.classDesc }</div>
 					<div class="clear"></div>
 				</div>
-				<div class="bot mt20 ft20 ftbc">开课机构：${PeriodClass.companyId}</div>
+				<div class="bot mt20 ft20 ftbc">开课机构：${PeriodClass.companyId}</div>				
 			</div>
+		
+			<div style="visibility: hidden">课程id：&nbsp;<input type="hidden" name="classId" id="classId" value="${PeriodClass.classId}"/></div>
+			<div style="visibility: hidden">学员id：&nbsp;<input type="hidden" name="studentId" id="studentId" value="${student.studentId}"/></div>	
 			<div class="xiadan ml20 mt20">
 					<input class="jrgwc"  type="button" name="ljbm" value="立即报名" onclick="doLogin1()" />
-					<input class="jrgwc" type="button" name="jrsc" value="加入收藏" />
-				
+					<input class="jrgwc" type="button" name="jrsc" value="加入购物车" onclick="doshoppingcart()"/>				
 			</div>
 		</div>
+
 		<div class="clear"></div>
 	</div>
-	</form>
 	<!-- footer -->
 	<footer class="mt20 center">
 			
 			<div class="mt20">培训宝</div>
 
-		</footer>
+	</footer>
 </body>
 </html>

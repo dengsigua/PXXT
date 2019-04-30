@@ -1,8 +1,14 @@
 package com.sign_up.controller;
 
+
+import java.nio.channels.ScatteringByteChannel;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import javax.accessibility.AccessibleRelation;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,8 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.classes.pojo.Classes;
 import com.common.utils.PageBean;
+import com.common.utils.ResultMap;
+import com.common.utils.UnitTwo;
 import com.common.utils.result;
+import com.company.pojo.Company;
 import com.company.service.CompanyService;
 import com.sign_up.pojo.SignUp;
 import com.sign_up.service.Sign_upService;
@@ -99,10 +109,10 @@ public class Sign_upController {
 		}catch(Exception e){
 			e.printStackTrace();
 			System.out.println("c");
-			model.addAttribute("msg", "���ʧ�ܣ�");
+			model.addAttribute("msg", "添加失败");
 			model.addAttribute("SignUp", sp);
 			result.setSuccess(false);
-			result.setErrorMsg("�༭ʧ��");	
+			result.setErrorMsg("添加失败");	
 			//return "sign_up/findsignup";
 		}
 		return result;
@@ -139,7 +149,7 @@ public class Sign_upController {
 		 try{
 			 for(int i=0;i<str.length;i++){
 				 System.out.println(str[i]);
-				 Long id = Long.parseLong(str[i]);
+				 String id = str[i];
 				 //service.updateCompanyStateById(id);
 				 service.deleteSignUpById(id);
 			 }
@@ -147,12 +157,98 @@ public class Sign_upController {
 		 }catch(Exception e){
 			 e.printStackTrace();
 			 result.setSuccess(false);
-			 result.setErrorMsg("ɾ��ʧ��");
+			 result.setErrorMsg("删除失败");
 		 }
 		 return result;
 	}
 	
+	/**
+	 * 课程报名
+	 * @return
+	 */
+	@RequestMapping("class_signup")
+	public String Class_signup(HttpSession session,Model model,SignUp sp){
+		System.out.println(sp);
+		try{
+			System.out.println("b");
+			System.out.println(sp);
+			service.insertSignup1(sp);
+			session.setAttribute("signup", sp);
+			model.addAttribute("msg1", "报名成功");
+			//return "sign_up/toclasslist";
+			return "common/xiangqing2";
+		}catch(Exception e){
+			System.out.println("c");
+			model.addAttribute("msg1", "报名失败");
+			model.addAttribute("signup", sp);	
+			return "sign_up/class_signup";
+		}
+	}
+	
+	
+	
+	
+	/**
+	 * 查询分页信息
+	 * 条件查询
+	 * @param sesesion
+	 * @param model
+	 * @param currentPage
+	 * @param classPrice1
+	 * @param classPrice2
+	 * @param classTitle
+	 * @return
+	 */
+	
+	@RequestMapping("classeslist")
+	@ResponseBody
+	public ResultMap classlist(HttpSession sesesion,Model model,@RequestParam(required=true,defaultValue="1") Integer currentPage,
+			SignUp sp){
+		int PageSize = 3;
+		List<UnitTwo> clas= service.findClassesPage(currentPage, PageSize, sp);
+		
+//		if(clas!=null&&clas.size()>0){
+//			for (SignUp classes : clas) {
+//				System.out.println(clas);
+//			}
+//		}
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		for (UnitTwo unitTwo : clas) {
+			formatter.format(unitTwo.getSignUpTime());
+			//System.out.println(string);
+		}
+		PageBean bean = new PageBean();
+		bean.setRows(clas);
+		bean.setPageSize(PageSize);
+		bean.setCurrentPage(currentPage);
+		int total = service.selectCount(sp);
+		System.out.println("total:"+total);
+		int count = (total+PageSize-1)/PageSize;
+		bean.setTotal(total);
+		bean.setTotalPages(count);
+		model.addAttribute("SignUpbean", bean);
+		sesesion.setAttribute("SignUpbean", bean);
+		ResultMap result = new ResultMap();
+		result.setState(true);		
+		return result;
+	}
+	
+	/**
+	 * 跳转到我的课程列表列表
+	 * @return
+	 */
+	@RequestMapping("toclasslist")
+	public String toclasslist(HttpSession session,Model model){
+		PageBean bean = (PageBean) session.getAttribute("SignUpbean");
+		if(bean==null){
+			classlist(session,model,1,null);
+		}
+		
+		return "common/dingdanzhongxin";
+	}
 
+	
+	
 	
 }		
 		

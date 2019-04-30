@@ -2,36 +2,41 @@ package com.sign_up.service;
 
 import java.util.List;
 
+import com.classes.pojo.Classes;
+import com.common.utils.UnitTwo;
 import com.sign_up.pojo.SignUp;
 import com.student.pojo.Student;
 
 
 /**
- * ²Ù×÷Sign_upµÄËùÓÐservice
+ * ï¿½ï¿½ï¿½ï¿½Sign_upï¿½ï¿½ï¿½ï¿½ï¿½ï¿½service
  * @author DSJ
  *
  */
 public interface Sign_upService {
 	/**
-	 * ¸ù¾ÝId²éÑ¯±¨ÃûÇé¿ö
+	 * ï¿½ï¿½ï¿½Idï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param id
 	 * @return
 	 */
 	/**
-	 * °´Ìõ¼þ²éÑ¯Ñ§Ô±
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯Ñ§Ô±
 	 * @return
 	 */
 	public List<Student> findSomeStudents(Student  student,int index,int pageSize);
 	/**
-	 * ²éÕÒÑ§Ô±×ÜÊý
+	 * ï¿½ï¿½ï¿½ï¿½Ñ§Ô±ï¿½ï¿½ï¿½ï¿½
 	 * @param student
 	 * @return
 	 */	
 	public int selectCountStudent(Student student);
 	public int selectCount(SignUp sp);
 	public void insertSignUp(SignUp sp);
+	public void insertSignup1(SignUp sp);
 	public void updateSignUpInfo(SignUp sp);
-	public void deleteSignUpById(Long id);
+	public void deleteSignUpById(String id);
 	public List<SignUp> findSignup(SignUp sp, int index, int rows);
-
+	
+	public List<UnitTwo> findClassesPage(Integer currentPage, int pageSize,SignUp sp);
+	public int countClasses(SignUp sp);
 }
