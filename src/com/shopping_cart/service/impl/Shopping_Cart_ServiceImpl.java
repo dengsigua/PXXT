@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.classes.mapper.ClassesMapper;
 import com.classes.pojo.Classes;
+import com.classes.pojo.ClassesExample;
 import com.common.utils.ClassCompany;
 import com.common.utils.ShopClass;
 import com.common.utils.UnitTwo;
@@ -21,6 +22,7 @@ import com.shopping_cart.service.Shopping_Cart_Service;
 import com.sign_up.mapper.SignUpMapper;
 import com.sign_up.pojo.SignUp;
 import com.sign_up.pojo.SignUpExample;
+import com.student.pojo.Student;
 
 @Service
 public class Shopping_Cart_ServiceImpl implements Shopping_Cart_Service {
@@ -86,15 +88,10 @@ public class Shopping_Cart_ServiceImpl implements Shopping_Cart_Service {
 	@Override
 	public List<ShopClass> findClassesPage(Integer currentPage, int pageSize,ShoppingCart sp) {
 		ShoppingCartExample example = new ShoppingCartExample();
-		Criteria criteria = example.createCriteria();
-		System.out.println(sp);			
+		Criteria criteria = example.createCriteria();		
 		if(sp!=null){
-			if(!"".equals(sp.getStudentId())&&sp.getStudentId()!=null){
-				criteria.andStudentIdEqualTo(sp.getStudentId());
-		
-			}
-			if(!"".equals(sp.getClassId())&&sp.getClassId()!=null){
-				criteria.andClassIdEqualTo(sp.getClassId());
+			if(!"".equals(sp.getShoppingCartId())&&sp.getShoppingCartId()!=null){
+				criteria.andShoppingCartIdEqualTo(sp.getShoppingCartId());
 		
 			}
 		}
@@ -124,9 +121,41 @@ public class Shopping_Cart_ServiceImpl implements Shopping_Cart_Service {
 		 return result;
 	}
 	
+	
+	@Override
+	public int countClasses(Long shoppingcartIds) {
+		ShoppingCartExample example = new ShoppingCartExample();
+		Criteria criteria = example.createCriteria();	
+		if(shoppingcartIds!=null){
+			criteria.andShoppingCartIdEqualTo(shoppingcartIds);
+		}
+		return mapper.countByExample(example);
+	}
+	
+	
 	@Override
 	public void deleteClassesById(Long shoppingcartIds){
 		mapper.deleteByPrimaryKey(shoppingcartIds);
 	}
+
+	@Override
+	public ShopClass findShopClassById(String id) {
+		// TODO Auto-generated method stub
+		Long ids = Long.parseLong(id);
+		ShoppingCart sCart =  mapper.selectByPrimaryKey(ids);				
+		Classes classes = classMapper.selectByPrimaryKey(sCart.getClassId());		
+		Company company=companyMapper.selectByPrimaryKey(classes.getCompanyId());
+		ShopClass ssc = new ShopClass();
+		ssc.setShoppingCartId(sCart.getShoppingCartId());
+		ssc.setClassId(sCart.getClassId());
+		ssc.setClassImg(classes.getClassImg());
+		ssc.setClassTitle(classes.getClassTitle());
+		ssc.setClassCid(classes.getClassCid());
+		ssc.setCompanyId(classes.getCompanyId());
+		ssc.setClassPrice(classes.getClassPrice());
+		ssc.setCompanyName(company.getCompanyName());
+		return  ssc;
+	}
+	
 
 }

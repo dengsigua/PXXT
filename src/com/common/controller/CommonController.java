@@ -152,6 +152,15 @@ public class CommonController {
 	public String gouwuche(){
 		return "common/gouwuche";
 	}
+	
+	/**
+	 * 支付页面
+	 * @return
+	 */
+	@RequestMapping("pay")
+	public String Pay(){
+		return "common/pay";
+	}
 
 	/**
 	 * 个人中心页面

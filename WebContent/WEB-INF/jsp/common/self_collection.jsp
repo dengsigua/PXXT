@@ -139,11 +139,50 @@
 			
 		}
 		
-		
+	
 		function toIntoPeriod(id,Imgsource) {
 			alert(id+"....");
 			window.location.href = "${pageContext.request.contextPath }/period/toList?classId="+id;
 			//$.post("${pageContext.request.contextPath }/period/toList",{classId:id,Imgsource:Imgsource});
+		}
+		
+		function dopay(){
+			var reason_arr = new Array();
+			
+			$.each($("input[name='shoppingcartIds']"), function(){
+				if(this.checked){
+					reason_arr.push($(this).val());					
+				}
+			});
+			if(reason_arr.length == 0){
+				alert("请选择需要结算的记录！");
+			}else{
+				var vals = reason_arr.join(",");	
+				alert(vals)
+				$.ajax({
+					type: "post", 
+					dataType:'json', //接受数据格式 
+					cache:false, 
+					data:{
+						shoppingcartIds: vals
+						}, 
+			        url:"${pageContext.request.contextPath }/shopping_cart/orderlist",
+			        success:function(result){
+			        	if(result.state){
+			        		
+			        		window.location.href = "${pageContext.request.contextPath }/common/pay"
+	
+			        		
+			        	}else{
+			        		window.location.reload(true);
+			        	}
+					},
+					error: function() {
+						alert("失败")
+					}
+
+			   });
+			}		
 		}
 		</script>
 	</head>
@@ -217,9 +256,8 @@
 					</ul>
 				</div>
 				<div class="jiesuan fr">
-				    
 					<div class="jiesuanjiage fl" id="jiesuan"></div>
-					<div class="jsanniu fr"><input class="jsan" type="submit" name="jiesuan"  value="去结算"/></div>
+					<div class="jsanniu fr"><input class="jsan" type="submit" name="jiesuan"  value="去结算" onclick="dopay()" /></div>
 					<div class="clear"></div>
 				<div class="clear"></div>
 			</div>

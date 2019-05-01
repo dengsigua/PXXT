@@ -20,6 +20,7 @@ import com.common.utils.UnitTwo;
 import com.common.utils.result;
 import com.shopping_cart.pojo.ShoppingCart;
 import com.shopping_cart.service.Shopping_Cart_Service;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 
 
@@ -30,17 +31,6 @@ public class Shopping_Cart_Controller {
 	@Autowired
 	private Shopping_Cart_Service service;
 	
-	private int page;
-	private int rows;//
-	
-	
-	public void setPage(int page) {
-		this.page = page;
-	}
-
-	public void setRows(int rows) {
-		this.rows = rows;
-	}
 	
 	@RequestMapping("findshoppingcart")
 	@ResponseBody
@@ -163,5 +153,35 @@ public class Shopping_Cart_Controller {
 			return map;
 		}	
 	}
+	
+	/**
+	 * 跳转到订单列表
+	 * @return
+	 */
+	@RequestMapping("orderlist")
+	@ResponseBody
+	public ResultMap orderlist(HttpSession session,Model model,String shoppingcartIds){
+             String[] idStrings = shoppingcartIds.split(",");
+            ResultMap map = new ResultMap();
+            		
+             try{
+            	 List<ShopClass> sClasses = new ArrayList<>();
+                 for (String id : idStrings) {
+    				ShopClass sClass= service.findShopClassById(id);
+    				sClasses.add(sClass);
+    			}
+                 session.setAttribute("sClasses", sClasses);
+                 map.setState(true);
+            }catch(Exception e){
+            	e.printStackTrace();
+            	map.setState(false);
+            	map.setMsg("网络异常");
+            }
+            
+			return map;
+		}
+		
+		
+		
 
 }
