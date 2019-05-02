@@ -5,11 +5,13 @@ import java.util.Date;
 public class Order {
     private String orderId;
 
-    private Long classId;
+    private String classIds;
 
     private Long studentId;
 
     private Date orderTime;
+
+    private Float orderPrice;
 
     public String getOrderId() {
         return orderId;
@@ -19,12 +21,12 @@ public class Order {
         this.orderId = orderId == null ? null : orderId.trim();
     }
 
-    public Long getClassId() {
-        return classId;
+    public String getClassIds() {
+        return classIds;
     }
 
-    public void setClassId(Long classId) {
-        this.classId = classId;
+    public void setClassIds(String classIds) {
+        this.classIds = classIds == null ? null : classIds.trim();
     }
 
     public Long getStudentId() {
@@ -41,5 +43,13 @@ public class Order {
 
     public void setOrderTime(Date orderTime) {
         this.orderTime = orderTime;
+    }
+
+    public Float getOrderPrice() {
+        return orderPrice;
+    }
+
+    public void setOrderPrice(Float orderPrice) {
+        this.orderPrice = orderPrice;
     }
 }

@@ -16,19 +16,57 @@
 		<link href="${pageContext.request.contextPath }/css/cartstyle.css" rel="stylesheet" type="text/css" />
 
 		<link href="${pageContext.request.contextPath }/css/jsstyle.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="${pageContext.request.contextPath }/js/address.js"></script>
 		<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.8.3.js"></script>
 		
 		<script type="text/javascript">
+		var sum=0;
 		$(function () {
-		    var count=0;
-		    var price=0;
-		    var sum=99;
-		    //$("#heji").empty();	    
-		   //var content="<p class='price g_price ' >合计（含运费） <span>¥</span><em class='pay-sum'>"+sum+"</em></p>";
-		    //$("#heji").append(content);
+		    var price = 0;
+		    
+		    $.each($("input[name='price']"), function(){
+		    	price=$(this).val();
+		    	sum+=Number(price);
+		    });
 		    $("#heji").text(sum.toFixed(2));
+		    $("#J_ActualFee").text(sum.toFixed(2));
 		});
 		
+		function doOrder() {
+			var reason_arr = new Array();
+			var studentId=$("#studentId").val();
+			$.each($("input[name='classId']"), function(){
+					reason_arr.push($(this).val());	
+					
+			});
+			var vals = reason_arr.join(",");
+			//$.each($("input[name='price']"), function(){
+		    	//price=$(this).val();
+		    	//sum+=Number(price);
+		    //});
+			
+			alert(vals);
+			alert(studentId);
+			alert(sum);
+			$.ajax({
+				type: "post", 
+				dataType:'json', //接受数据格式 
+				cache:false, 
+				data:{
+					classIds:vals,
+					studentId:studentId,
+					ordersPrice:sum
+					}, 
+			       url:"${pageContext.request.contextPath }/orders/addorders",
+			       success:function(result){
+			        if(result.state){			        		
+			        	window.location.href = "${pageContext.request.contextPath }/common/pay_success"			        		
+			        }else{
+			        	window.location.reload(true);
+			        }
+				},
+			 });	
+		}
 		</script>
 
 
@@ -64,9 +102,9 @@
 			<!--悬浮搜索框-->
 
 			<div class="nav white">
-				<div class="logo"><img src="${pageContext.request.contextPath }/images/logo.png" /></div>
+				<div class="logo"><img src="${pageContext.request.contextPath }/image/LOGO.png"  /></div>
 				<div class="logoBig">
-					<li><img src="${pageContext.request.contextPath }/images/logobig.png" /></li>
+					<li><img src="${pageContext.request.contextPath }/image/LOGO.png" style="width:150px; height:80px" /></li>
 				</div>
 
 				<div class="search-bar pr">
@@ -85,7 +123,7 @@
 					<!--支付方式-->
 					<div class="logistics">
 						<h3>选择支付方式</h3>
-						<ul class="pay-list">
+						<ul class="pay-list" style="text-align:center">
 							<li class="pay card"><img src="${pageContext.request.contextPath }/images/wangyin.jpg" />银联<span></span></li>
 							<li class="pay qq"><img src="${pageContext.request.contextPath }/images/weizhifu.jpg" />微信<span></span></li>
 							<li class="pay taobao"><img src="${pageContext.request.contextPath }/images/zhifubao.jpg" />支付宝<span></span></li>
@@ -124,7 +162,7 @@
 												<li class="td td-item">
 													<div class="item-pic">
 														<a href="#" class="J_MakePoint">
-															<img src="${b.classImg }" class="itempic J_ItemImg"></a>
+															<img src="${b.classImg }" class="itempic J_ItemImg"  style="width:100%; height:100%"></a>
 													</div>
 													<div class="item-info">
 														<div class="item-basic-info">
@@ -148,13 +186,15 @@
 											</div>
 											<li class="td td-sum">
 												<div class="td-inner" style="width:100px;margin-left:300px">
-													<em tabindex="0" class="J_ItemSum number">${b.classPrice}</em>
+													<em tabindex="0" class="J_ItemSum number" >${b.classPrice}</em>
 												</div>
 											</li>
 
 										</ul>
 										<div class="clear"></div>
-
+										 <div style="display:none">价格：&nbsp;<input type="hidden" name="price" id="price" value="${b.classPrice}"/></div>
+										 <div style="display:none">学员ID：&nbsp;<input type="hidden" name="studentId" id="studentId" value="${student.studentId }"/></div>
+										 <div style="display:none">课程ID：&nbsp;<input type="hidden" name="classId" id="classId" value="${b.classId }"/></div>
 									</div>
 							</tr>
 							</c:forEach>
@@ -164,18 +204,7 @@
 							<div class="clear"></div>
 							<div class="pay-total">
 						<!--留言-->
-							<div class="order-extra">
-								<div class="order-user-info">
-									<div id="holyshit257" class="memo">
-										<label>买家留言：</label>
-										<input type="text" title="选填,对本次交易的说明（建议填写已经和卖家达成一致的说明）" placeholder="选填,建议填写和卖家达成一致的说明" class="memo-input J_MakePoint c2c-text-default memo-close">
-										<div class="msg hidden J-msg">
-											<p class="error">最多输入500个字符</p>
-										</div>
-									</div>
-								</div>
 
-							</div>
 							<!--优惠券 -->
 
 							<div class="clear"></div>
@@ -191,7 +220,7 @@
 									<div class="box">
 										<div tabindex="0" id="holyshit267" class="realPay"><em class="t">实付款：</em>
 											<span class="price g_price ">
-                                    <span>¥</span> <em class="style-large-bold-red " id="J_ActualFee">244.00</em>
+                                    <span>¥</span> <em class="style-large-bold-red " id="J_ActualFee"></em>
 											</span>
 										</div>
 
@@ -200,8 +229,8 @@
 											<p class="buy-footer-address">
 												<span class="buy-line-title">收货人：</span>
 												<span class="buy-address-detail">   
-                                         <span class="buy-user">艾迪 </span>
-												<span class="buy-phone">15871145629</span>
+                                         <span class="buy-user">${student.studentName}</span>
+												<span class="buy-phone">${student.studentTel}</span>
 												</span>
 											</p>
 										</div>
@@ -209,7 +238,7 @@
 
 									<div id="holyshit269" class="submitOrder">
 										<div class="go-btn-wrap">
-											<a id="J_Go" href="success.html" class="btn-go" tabindex="0" title="点击此按钮，提交订单">提交订单</a>
+											<a id="J_Go" href="javascript:void(0);" onclick="doOrder();" class="btn-go" tabindex="0" title="点击此按钮，提交订单">提交订单</a>
 										</div>
 									</div>
 									<div class="clear"></div>
@@ -219,7 +248,6 @@
 
 						<div class="clear"></div>
 					</div>
-				</div>
 				<div class="footer">
 					<div class="footer-hd">
 						<p>
@@ -241,7 +269,6 @@
 						</p>
 					</div>
 				</div>
-			</div>
 	</body>
 
 </html>

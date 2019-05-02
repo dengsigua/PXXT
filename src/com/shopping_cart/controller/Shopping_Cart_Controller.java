@@ -161,10 +161,10 @@ public class Shopping_Cart_Controller {
 	@RequestMapping("orderlist")
 	@ResponseBody
 	public ResultMap orderlist(HttpSession session,Model model,String shoppingcartIds){
-             String[] idStrings = shoppingcartIds.split(",");
+            String[] idStrings = shoppingcartIds.split(",");
             ResultMap map = new ResultMap();
             		
-             try{
+            try{
             	 List<ShopClass> sClasses = new ArrayList<>();
                  for (String id : idStrings) {
     				ShopClass sClass= service.findShopClassById(id);

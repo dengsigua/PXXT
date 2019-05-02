@@ -1,5 +1,8 @@
 package com.order.service.impl;
 
+import java.util.Date;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,9 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Override
 	public void insertOrder(Order order) {
-		mapper.insert(order);
+		order.setOrderId(UUID.randomUUID().toString());
+		order.setOrderTime(new Date());
+		mapper.insert(order); 
 	}
+	
 }

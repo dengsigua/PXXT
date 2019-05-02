@@ -161,6 +161,24 @@ public class CommonController {
 	public String Pay(){
 		return "common/pay";
 	}
+	
+	/**
+	 * 支付成功页面
+	 * @return
+	 */
+	@RequestMapping("pay_success")
+	public String Pay_success(){
+		return "common/pay_success";
+	}
+	
+	/**
+	 * 订单详情页面
+	 * @return
+	 */
+	@RequestMapping("orderinfo")
+	public String orderinfo(){
+		return "common/orderinfo";
+	}
 
 	/**
 	 * 个人中心页面
