@@ -10,7 +10,7 @@
 
 		<title>结算页面</title>
 
-		<link href="${pageContext.request.contextPath }/css/amazeui.css" rel="stylesheet" type="text/css" />
+		<link href="${pageContext.request.contextPath }/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
 
 		<link href="${pageContext.request.contextPath }/css/demo.css" rel="stylesheet" type="text/css" />
 		<link href="${pageContext.request.contextPath }/css/cartstyle.css" rel="stylesheet" type="text/css" />
@@ -102,9 +102,9 @@
 			<!--悬浮搜索框-->
 
 			<div class="nav white">
-				<div class="logo"><img src="${pageContext.request.contextPath }/image/LOGO.png"  /></div>
+				<div class="logo"><img src="${pageContext.request.contextPath }/image/LOGO2.png"  /></div>
 				<div class="logoBig">
-					<li><img src="${pageContext.request.contextPath }/image/LOGO.png" style="width:150px; height:80px" /></li>
+					<li><img src="${pageContext.request.contextPath }/image/LOGO2.png" /></li>
 				</div>
 
 				<div class="search-bar pr">

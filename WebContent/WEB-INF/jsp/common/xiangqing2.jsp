@@ -31,7 +31,24 @@
 			},"json");
 			alert(classId);
 		}
-		
+		 function docollection(){
+				var classId = $("#classId").val();
+				var studentId = $("#studentId").val();
+				var url = "${pageContext.request.contextPath }/collection/addcollection";
+				$.post(url,
+				{
+					classId:classId,
+					studentId:studentId
+				},
+				function(data){
+					if(data.state){
+						alert("成功添加收藏夹");
+					}else{
+						alert("该课程已添加收藏夹");
+					}
+				},"json");
+				alert(classId);
+		 }
 		</script>
 </head>
 <body>
@@ -121,6 +138,7 @@
 		  <div class="left fl"><img src="${PeriodClass.classImg }" width=100% height=100%></div>
 		  <div class="right fr">
 			<div class="h3 ml20 mt20">${PeriodClass.classTitle }</div>
+			<div class="jianjie mr40 ml20 mt10 fr">添加收藏&nbsp;&nbsp;<a href="javascript:void(0);" id="collection" onclick="docollection()"><img src="${pageContext.request.contextPath }/images/no_collect.png"></a></div>
 			<div class="jianjie mr40 ml20 mt10">${PeriodClass.classSellPoint }</div>
 			<div class="jiage ml20 mt10">预计${PeriodClass.classPrice}元/人</div>
 			<div class="ft20 ml20 mt20">班级类别：${PeriodClass.classCid }</div>

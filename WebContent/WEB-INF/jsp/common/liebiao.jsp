@@ -153,8 +153,7 @@
 		    		<div class="message">共<i class="blue">${Classbean.total }</i>条记录，当前显示第&nbsp;<i class="blue">${Classbean.currentPage }&nbsp;</i>页   
 		        		<a class="nextPage" href="javascript:void(0);" onclick="doChangePage(${Classbean.currentPage==1?1:Classbean.currentPage-1})">&lt;&lt;上一页</a>
 						<a class="nextPage" href="javascript:void(0);" onclick="doChangePage(${Classbean.currentPage==bean.total?Classbean.total:Classbean.currentPage+1})">&lt;&lt;下一页</a>
-						
-		       		</div>
+				</div>
 		       		
 		
 			<!-- end danpin -->

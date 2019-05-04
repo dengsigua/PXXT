@@ -130,8 +130,7 @@ public class Sign_upServiceImpl implements Sign_upService{
 				criteria.andSignUpNameLike("%"+sp.getSignUpName()+"%");
 			}
 			if(!"".equals(sp.getClassId())&&sp.getClassId()!=null){
-				criteria.andClassIdEqualTo(sp.getClassId());
-		
+				criteria.andClassIdEqualTo(sp.getClassId());		
 			}
 		}
 		int index = (currentPage-1)*pageSize;

@@ -100,16 +100,14 @@ public class CommonController {
 	public String CompanyRegister(){
 		return "company/register";
 	}
-	
+	/**
+	 * 课程添加页面
+	 * @return
+	 */
 	@RequestMapping("addClass")
 	public String ClassesAdd(){
 		return "classes/class_add";
 	}
-	
-	
-	
-	
-
 	/**
 	 *课程列表
 	 * @return
@@ -148,9 +146,9 @@ public class CommonController {
 	 * 购物车页面
 	 * @return
 	 */
-	@RequestMapping("gouwuche")
-	public String gouwuche(){
-		return "common/gouwuche";
+	@RequestMapping("self_collection")
+	public String self_collection(){
+		return "common/self_collection";
 	}
 	
 	/**
@@ -187,8 +185,7 @@ public class CommonController {
 	@RequestMapping("self_info")
 	public String self_info(){
 		return "common/self_info";
-	}
-	
+	}	
 	
 	/**
 	 * 修改密码页面
@@ -242,9 +239,9 @@ public class CommonController {
 	 * 个人收藏页面
 	 * @return
 	 */
-	@RequestMapping("self_collection")
-	public String self_collection(){
-		return "common/self_collection";
+	@RequestMapping("collection")
+	public String collection(){
+		return "common/collection";
 	}
 	/**
 	 * 个人评价页面
@@ -263,7 +260,14 @@ public class CommonController {
 		return "student/class_signup";
 	}
 	
-	
+	/**
+	 *个人中心框架
+	 * @return
+	 */
+	@RequestMapping("frame")
+	public String Frame(){
+		return "common/frame";
+	}
 
 
 }

@@ -12,16 +12,13 @@
 		<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.8.3.js"></script>
 		<script type="text/javascript">
 		function doChangePage(currentPage) {
-			//alert(currentPage);
+			alert(currentPage);
 //			alert(classTitle+"xxx"+classPrice1+"xxx"+classPrice2);
 			$.ajax({
 					type: "post", 
 					dataType:'json', //接受数据格式 
 					cache:false, 
 					data:{
-						classTitle:null,
-						classPrice1:null,
-						classPrice2:null,
 						currentPage:currentPage
 						}, 
 			        url:"${pageContext.request.contextPath }/sign_up/classeslist",
@@ -29,7 +26,7 @@
 				      window.location.reload(true);
 					},
 					error: function() {
-		             
+		             alert("失败");
 					}
 
 			   });
@@ -55,7 +52,7 @@
 			}
 		
 		$(function(){
-			var date = ${b.signUpTime};
+			var date =$("#signUpTime").val();		
 			myformatter(date);
 		});
 		</script>
@@ -160,6 +157,7 @@
 						<li><a class="enter" href="javascript:void(0);" onclick="toIntoPeriod(${b.classId})">交易详情></a></li>
 						<div class="clear"></div>
 					</ul>
+					<div style="display:none">报名时间：&nbsp;<input type="hidden" name="signUpTime" id="signUpTime" value="${b.signUpTime}"/></div>
 				</div>
 				<div class="clear"></div>
 				</div>

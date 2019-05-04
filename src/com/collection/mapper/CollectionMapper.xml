@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.collection.mapper.CollectionMapper" >
+  <resultMap id="BaseResultMap" type="com.collection.pojo.Collection" >
+    <id column="collection_id" property="collectionId" jdbcType="BIGINT" />
+    <result column="student_id" property="studentId" jdbcType="BIGINT" />
+    <result column="class_id" property="classId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    collection_id, student_id, class_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.collection.pojo.CollectionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from collection
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+      limit #{index},#{pageSize}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from collection
+    where collection_id = #{collectionId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from collection
+    where collection_id = #{collectionId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.collection.pojo.CollectionExample" >
+    delete from collection
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.collection.pojo.Collection" >
+    insert into collection (collection_id, student_id, class_id
+      )
+    values (#{collectionId,jdbcType=BIGINT}, #{studentId,jdbcType=BIGINT}, #{classId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.collection.pojo.Collection" >
+    insert into collection
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="collectionId != null" >
+        collection_id,
+      </if>
+      <if test="studentId != null" >
+        student_id,
+      </if>
+      <if test="classId != null" >
+        class_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="collectionId != null" >
+        #{collectionId,jdbcType=BIGINT},
+      </if>
+      <if test="studentId != null" >
+        #{studentId,jdbcType=BIGINT},
+      </if>
+      <if test="classId != null" >
+        #{classId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.collection.pojo.CollectionExample" resultType="java.lang.Integer" >
+    select count(*) from collection
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update collection
+    <set >
+      <if test="record.collectionId != null" >
+        collection_id = #{record.collectionId,jdbcType=BIGINT},
+      </if>
+      <if test="record.studentId != null" >
+        student_id = #{record.studentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.classId != null" >
+        class_id = #{record.classId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update collection
+    set collection_id = #{record.collectionId,jdbcType=BIGINT},
+      student_id = #{record.studentId,jdbcType=BIGINT},
+      class_id = #{record.classId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.collection.pojo.Collection" >
+    update collection
+    <set >
+      <if test="studentId != null" >
+        student_id = #{studentId,jdbcType=BIGINT},
+      </if>
+      <if test="classId != null" >
+        class_id = #{classId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where collection_id = #{collectionId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.collection.pojo.Collection" >
+    update collection
+    set student_id = #{studentId,jdbcType=BIGINT},
+      class_id = #{classId,jdbcType=BIGINT}
+    where collection_id = #{collectionId,jdbcType=BIGINT}
+  </update>
+</mapper>

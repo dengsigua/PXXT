@@ -14,7 +14,9 @@ public class ShopClass extends ShoppingCart{
     private String classCid;
 
     private Long companyId;
+    
     private String companyName;
+    
     public String getCompanyName() {
 		return companyName;
 	}

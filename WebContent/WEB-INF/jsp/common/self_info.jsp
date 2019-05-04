@@ -27,7 +27,7 @@
 					</ul>
 				</div>
 				<div class="right fr">
-					<div class="gouwuche fr"><a href="${pageContext.request.contextPath }/common/self_collection">购物车</a></div>
+					<div class="gouwuche fr"><a href="${pageContext.request.contextPath }/shopping_cart/toclasslist">购物车</a></div>
 					<div class="fr">
 						<ul>
 							<li>${student.studentTel},&nbsp;&nbsp;欢迎您。&nbsp;&nbsp;&nbsp;&nbsp;</li>
@@ -81,7 +81,7 @@
 			<div class="subddzx">
 				<ul>
 					<li><a href="${pageContext.request.contextPath }/sign_up/toclasslist" >我的课程</a></li>
-					<li><a href="${pageContext.request.contextPath }/shopping_cart/toclasslist">我的收藏</a></li>
+					<li><a href="${pageContext.request.contextPath }/collection/toclasslist">我的收藏</a></li>
 					<li><a href="${pageContext.request.contextPath }/common/self_comment">我的评价</a></li>
 				</ul>
 			</div>

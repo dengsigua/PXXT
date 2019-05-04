@@ -205,18 +205,12 @@ public class Sign_upController {
 	public ResultMap classlist(HttpSession sesesion,Model model,@RequestParam(required=true,defaultValue="1") Integer currentPage,
 			SignUp sp){
 		int PageSize = 3;
-		List<UnitTwo> clas= service.findClassesPage(currentPage, PageSize, sp);
-		
-//		if(clas!=null&&clas.size()>0){
-//			for (SignUp classes : clas) {
-//				System.out.println(clas);
-//			}
-//		}
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		for (UnitTwo unitTwo : clas) {
-			formatter.format(unitTwo.getSignUpTime());
+		List<UnitTwo> clas= service.findClassesPage(currentPage, PageSize, sp);		
+//		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		for (UnitTwo unitTwo : clas) {
+//			formatter.format(unitTwo.getSignUpTime());
 			//System.out.println(string);
-		}
+//		}
 		PageBean bean = new PageBean();
 		bean.setRows(clas);
 		bean.setPageSize(PageSize);
